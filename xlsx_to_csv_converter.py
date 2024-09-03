@@ -20,4 +20,4 @@ def convert_list_with_files(list_with_files: np.array, input_folder_path: str, o
         extension = '.csv'
         filename = filename + extension
         filepath = os.path.join(output_folder_path, filename)
-        df.to_csv(filepath)
+        df.to_csv(filepath, header=False)
