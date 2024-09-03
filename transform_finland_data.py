@@ -7,11 +7,22 @@ def main() -> None:
     #convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
     #_removing_headers_and_bad_rows()
     #_change_values()
-    #_make_custom_csv_file()
 
+    # Making it into one file - all regions to one file
+    #_make_custom_csv_file()
+    #_remove_nan_from_csv_file()
     print('All files transformed...')
 
-def _make_custom_csv_file():
+def _remove_nan_from_csv_file() -> None:
+    filename = 'finland_regions_emissions.csv'
+    folder = 'transformed_finland_data'
+    filepath = fh.get_path_of_file(folder, filename)
+    df = pd.read_csv(filepath)
+    df.fillna(0, inplace=True)
+    print(df.isna().sum())
+    df.to_csv(filepath, index=False)
+
+def _make_custom_csv_file() -> None:
     custom_csv_filename = 'finland_regions_emissions.csv'
     filepath_output = fh.get_path_of_folder('transformed_finland_data')
     filepath = fh.get_path_of_folder('transformed_finland_data/regions')
@@ -34,7 +45,7 @@ def _make_custom_csv_file():
     file_output = os.path.join(filepath_output, custom_csv_filename)
     output_df.to_csv(file_output, index=False)
 
-def _change_values():
+def _change_values() -> None:
     filepath = fh.get_path_of_folder('transformed_finland_data/regions')
     list_with_files = fh.get_list_with_names_from_folder(filepath)
 
