@@ -4,14 +4,19 @@ import pandas as pd
 import os
 
 def main() -> None:
-    #convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
-    #_removing_headers_and_bad_rows()
-    #_change_values()
+    #_run_this_once_from_raw_data_to_transform_data()
+    print('All files transformed...')
+
+def _run_this_once_from_raw_data_to_transform_data() -> None:
+    convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
+    _removing_headers_and_bad_rows()
+    _change_values()
 
     # Making it into one file - all regions to one file
-    #_make_custom_csv_file()
-    #_remove_nan_from_csv_file()
-    print('All files transformed...')
+    _make_custom_csv_file()
+    _remove_nan_from_csv_file()
+
+    # TODO: Change special characters in file to english
 
 def _remove_nan_from_csv_file() -> None:
     filename = 'finland_regions_emissions.csv'
