@@ -7,9 +7,33 @@ def main() -> None:
     #convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
     #_removing_headers_and_bad_rows()
     #_change_values()
-    
+    #_make_custom_csv_file()
+
     print('All files transformed...')
-    
+
+def _make_custom_csv_file():
+    custom_csv_filename = 'finland_regions_emissions.csv'
+    filepath_output = fh.get_path_of_folder('transformed_finland_data')
+    filepath = fh.get_path_of_folder('transformed_finland_data/regions')
+    list_with_files = fh.get_list_with_names_from_folder(filepath)
+
+    split_word = 'Hinku'
+
+    output_df = pd.DataFrame()
+
+    for file in list_with_files:
+        filepath_of_file = os.path.join(filepath, file)
+        df = pd.read_csv(filepath_of_file)
+        first_column = df.columns[0]
+        region, column_name = first_column.split(split_word)
+        column_name = split_word + column_name
+        df.rename(columns={first_column: column_name}, inplace=True)
+        df['Region'] = region
+        output_df = pd.concat([output_df, df])
+        
+    file_output = os.path.join(filepath_output, custom_csv_filename)
+    output_df.to_csv(file_output, index=False)
+
 def _change_values():
     filepath = fh.get_path_of_folder('transformed_finland_data/regions')
     list_with_files = fh.get_list_with_names_from_folder(filepath)
