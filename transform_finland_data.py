@@ -9,6 +9,7 @@ def main() -> None:
     filepath = fh.get_path_of_folder('transformed_finland_data')
     list_with_files = fh.get_list_with_names_from_folder(filepath)
     
+    # Removing headers and bad rows
     for file in list_with_files:
         filepath_of_file = os.path.join(filepath, file)
         df = pd.read_csv(filepath_of_file)
