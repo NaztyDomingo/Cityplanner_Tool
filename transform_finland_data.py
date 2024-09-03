@@ -16,5 +16,8 @@ def main() -> None:
         df.drop([17], inplace=True)
         df.to_csv(filepath_of_file, header=False)
 
+    # Translating the files
+    
+
 if __name__ == "__main__":
     main()
