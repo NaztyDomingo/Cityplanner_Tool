@@ -96,10 +96,10 @@ AIRPORT_REG_DICT = {'Helsinki-Vantaa': 'Uusimaa',
                     'Vaasa': 'Ostrobothnia'}
 
 ALL_REGIONS = [
-    "Aaland", "Central Finland", "Central Ostrobothnia", "Kainuu", 
-    "Kanta-Haeme", "Kymenlaakso", "Lapland", "North Karelia", 
-    "North Ostrobothnia", "North Savo", "Ostrobothnia", "Paeijaet-Haeme", 
-    "Pirkanmaa", "Satakunta", "South Karelia", "South Ostrobothnia", 
+    "Aaland", "Central Finland", "Central Ostrobothnia", "Kainuu",
+    "Kanta-Haeme", "Kymenlaakso", "Lapland", "North Karelia",
+    "North Ostrobothnia", "North Savo", "Ostrobothnia", "Paeijaet-Haeme",
+    "Pirkanmaa", "Satakunta", "South Karelia", "South Ostrobothnia",
     "South Savo", "Southwest Finland", "Uusimaa"
 ]
 
@@ -145,10 +145,14 @@ def translate_regions(df: pd.DataFrame, replacements: dict) -> pd.DataFrame:
 # converts year to type int and drops column(s)
 
 
-def clean_df(df: pd.DataFrame, columns_to_drop: list, year_col: str = 'year') -> pd.DataFrame:
+def clean_df(df: pd.DataFrame, columns_to_drop: list, int_columns: list = [], year_col: str = 'year') -> pd.DataFrame:
     df = df.drop(columns=columns_to_drop, errors='ignore')
     if year_col in df:
         df[year_col] = df[year_col].astype(int)
+        # Convert specified columns to integers
+    for col in int_columns:
+        if col in df.columns:
+            df[col] = df[col].fillna(0).astype(int)
     return df
 
 
@@ -197,59 +201,48 @@ def transform_agricultural_data():
 
 
 def transform_ship_and_car_data() -> pd.DataFrame:
-    # Read and clean dataframes
+
     cars_df = create_df('reg_cars_fin')
     cars_df = remove_mk(cars_df, 'area')
 
-    # Melt df to get correct format for merging later
-    melted_df = pd.melt(cars_df, id_vars=['region'], var_name='year', value_name='num_of_vehicles')
+    # melt df to get correct format for merging later
+    melted_df = pd.melt(
+        cars_df, id_vars=['region'], var_name='year', value_name='num_of_vehicles')
     melted_df['year'] = melted_df['year'].str[16:].astype(int)
-    cars_df = melted_df.sort_values(by=['year', 'region']).reset_index(drop=True)
+    cars_df = melted_df.sort_values(
+        by=['year', 'region']).reset_index(drop=True)
 
-    # Remove data before 2016
+    # rm data from before 2016
     cars_df = cars_df[cars_df.year >= 2016]
 
-    # Load and clean ship data
     ship_int_df = create_df('ship_international_fin')
     ship_passenger_df = create_df('ship_passenger_traffic_fin')
-    ship_traffic_df = create_df('ship_traffic_fin')
-    
-    # Clean dataframes
-    ship_int_df = clean_df(ship_int_df, [])
-    ship_passenger_df = clean_df(ship_passenger_df, [])
-    ship_traffic_df = clean_df(ship_traffic_df, [])
 
-    # Assign regions
+    ship_int_df = ship_int_df.replace('.', 0)
+    ship_passenger_df = ship_passenger_df.replace('.', 0)
+
+    ship_int_df = clean_df(ship_int_df, [], ['tons_of_ship_cargo'])
+    ship_passenger_df = clean_df(ship_passenger_df, [], ['num_of_ship_passengers'])
+
+    # assign regions based on ports
     ship_int_df = assign_region(ship_int_df, 'port', PORT_REG_DICT)
     ship_passenger_df = assign_region(ship_passenger_df, 'port', PORT_REG_DICT)
-    ship_traffic_df = assign_region(ship_traffic_df, 'port', PORT_REG_DICT)
 
-    # Merge ship dataframes
-    ships_df = pd.merge(ship_traffic_df, ship_int_df, on=['year', 'region'], how='inner')
-    ships_df = pd.merge(ships_df, ship_passenger_df, on=['year', 'region'], how='outer')
+    ship_int_df = ship_int_df.groupby(['year', 'region']).sum().reset_index()
+    ship_passenger_df = ship_passenger_df.groupby(['year', 'region']).sum().reset_index()
 
-    # Convert numeric columns to appropriate types
-    ships_df['num_of_ship_visits'] = pd.to_numeric(ships_df['num_of_ship_visits'], errors='coerce')
-    ships_df['tons_of_ship_cargo'] = pd.to_numeric(ships_df['tons_of_ship_cargo'], errors='coerce')
-    ships_df['num_of_ship_passengers'] = pd.to_numeric(ships_df['num_of_ship_passengers'], errors='coerce')
+    ships_df = pd.merge(ship_int_df, ship_passenger_df, on=[
+                        'year', 'region'], how='inner')
 
-    # Aggregate to get one row per year*region
-    aggregated_shipping_df = ships_df.groupby(['year', 'region']).agg({
-        'num_of_ship_visits': 'sum',
-        'tons_of_ship_cargo': 'sum',
-        'num_of_ship_passengers': 'sum'
-    }).reset_index()
-
-    # Merge with car data
-    shipping_cars_df = pd.merge(aggregated_shipping_df, cars_df, on=['year', 'region'], how='right')
-    shipping_cars_df = shipping_cars_df.rename(columns={"num_of_vehicles": "num_of_registered_automobiles"})
+    shipping_cars_df = pd.merge(ships_df, cars_df, on=[
+                                'year', 'region'], how='right')
+    shipping_cars_df = shipping_cars_df.rename(
+        columns={"num_of_vehicles": "num_of_registered_automobiles"})
 
     shipping_cars_df.fillna(0, inplace=True)
 
-    # Save the final dataframe
-    shipping_cars_df.to_csv(OUTPUT_PATH + 'transportation_fin.csv', index=False)
-
-    print(shipping_cars_df.dtypes)
+    shipping_cars_df.to_csv(
+        OUTPUT_PATH + 'transportation_fin.csv', index=False)
 
     return shipping_cars_df
 
