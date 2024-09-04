@@ -4,7 +4,8 @@ import pandas as pd
 import os
 
 def main() -> None:
-    #_run_this_once_from_raw_data_to_transform_data()
+    _run_this_once_from_raw_data_to_transform_data()
+    _remove_columns_not_needed()
     print('All files transformed...')
 
 def _run_this_once_from_raw_data_to_transform_data() -> None:
@@ -18,13 +19,52 @@ def _run_this_once_from_raw_data_to_transform_data() -> None:
 
     # TODO: Change special characters in file to english
 
+    # TODO: Remove columns that we shouldn't use
+
+    # TODO: Make Emission types into columns
+
+def _remove_columns_not_needed() -> None:
+    filename = 'finland_regions_emissions.csv'
+    folder = 'transformed_finland_data'
+    filepath = fh.get_path_of_file(folder, filename)
+    df = pd.read_csv(filepath, index_col=False)
+    df_cleaned = df[df['Hinku calculation without emission credits'] != 'F-gases']
+    df_cleaned = df_cleaned[df_cleaned['Hinku calculation without emission credits'] != 'Emission credits']
+    df_cleaned = df_cleaned[df_cleaned['Hinku calculation without emission credits'] != 'per person. tCO2e']
+    df_cleaned.drop(columns=['2006','2007','2008','2009','2011','2012','2013','2014'], axis=1, inplace=True)
+    region_column = df_cleaned[['Region']]
+    df_cleaned.drop(columns=['Region'], axis=1, inplace=True)
+
+    #Split dataset into two dataframes
+    split_row_index = 14
+
+    # Splitting the DataFrame
+    first_split_df = df_cleaned.iloc[:split_row_index]
+    df2 = df_cleaned.iloc[split_row_index:]
+
+    print("First DataFrame:")
+    print(first_split_df)
+    print("\nSecond DataFrame:")
+    print(df2)
+
+    df_cleaned = first_split_df.transpose()
+    df_cleaned.to_csv(filepath)
+
+    df = pd.read_csv(filepath, header=1)
+    #df['Region'] = region_column
+
+    column_to_rename = df.columns[0]
+    df.rename(columns={column_to_rename: 'Year'}, inplace=True)
+    print(df.head(15))
+    df.to_csv(filepath, index=False)
+
 def _remove_nan_from_csv_file() -> None:
     filename = 'finland_regions_emissions.csv'
     folder = 'transformed_finland_data'
     filepath = fh.get_path_of_file(folder, filename)
     df = pd.read_csv(filepath)
     df.fillna(0, inplace=True)
-    print(df.isna().sum())
+    #print(df.isna().sum())
     df.to_csv(filepath, index=False)
 
 def _make_custom_csv_file() -> None:
