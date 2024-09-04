@@ -1,0 +1,267 @@
+﻿"year","region","variable","cattle","pigs","poultry","sheep","goats"
+"2011","Uusimaa","Livestock",23073,34067,13150,7661,248
+"2011","Varsinais-Suomi","Livestock",36593,368638,3742539,14400,524
+"2011","Satakunta","Livestock",32000,153390,2202634,6096,275
+"2011","Kanta-Haeme","Livestock",22192,58761,119303,2586,..
+"2011","Pirkanmaa","Livestock",50997,89245,926692,6843,1257
+"2011","Paeijaet-Haeme","Livestock",23502,33978,15195,2199,24
+"2011","Kymenlaakso","Livestock",17360,11549,35808,2829,24
+"2011","South Karelia","Livestock",21946,20603,39092,2130,..
+"2011","Etelae-Savo","Livestock",46758,13914,162595,5946,58
+"2011","Pohjois-Savo","Livestock",120285,33015,29542,3395,261
+"2011","North Karelia","Livestock",57476,9067,32322,4909,126
+"2011","Central Finland","Livestock",51727,14324,49949,8263,47
+"2011","South Ostrobothnia","Livestock",107181,227245,2293633,6586,1384
+"2011","Ostrobothnia","Livestock",47278,198036,529842,9341,349
+"2011","Central Ostrobothnia","Livestock",55654,16490,236,1683,..
+"2011","North Ostrobothnia","Livestock",134624,51817,13737,11100,108
+"2011","Kainuu","Livestock",22767,915,10346,3366,15
+"2011","Lapland","Livestock",34935,..,4747,17098,134
+"2011","Aaland","Livestock",7689,..,14319,12660,21
+"2012","Uusimaa","Livestock",22583,32721,11821,7646,297
+"2012","Varsinais-Suomi","Livestock",37022,353897,3609828,15745,609
+"2012","Satakunta","Livestock",33009,152687,2736789,5317,204
+"2012","Kanta-Haeme","Livestock",21775,53842,147194,3262,37
+"2012","Pirkanmaa","Livestock",50838,85032,954334,7579,1318
+"2012","Paeijaet-Haeme","Livestock",23434,31239,11764,2529,21
+"2012","Kymenlaakso","Livestock",16930,8514,4876,2870,30
+"2012","South Karelia","Livestock",21122,21590,22274,1689,..
+"2012","Etelae-Savo","Livestock",46059,12453,122778,6001,54
+"2012","Pohjois-Savo","Livestock",122045,29708,34221,3802,287
+"2012","North Karelia","Livestock",57178,9329,28204,5121,144
+"2012","Central Finland","Livestock",51252,14009,68004,8136,47
+"2012","South Ostrobothnia","Livestock",107511,221984,2522358,6322,1410
+"2012","Ostrobothnia","Livestock",47574,187983,439574,9822,146
+"2012","Central Ostrobothnia","Livestock",55849,16451,74,2083,..
+"2012","North Ostrobothnia","Livestock",133430,57402,15499,10585,97
+"2012","Kainuu","Livestock",22710,1418,9878,3064,19
+"2012","Lapland","Livestock",34514,..,4895,15901,123
+"2012","Aaland","Livestock",7902,..,16214,12531,32
+"2013","Uusimaa","Livestock",22583,32537,12969,8074,265
+"2013","Varsinais-Suomi","Livestock",36667,360959,4109437,17281,362
+"2013","Satakunta","Livestock",32237,145311,2794172,5482,68
+"2013","Kanta-Haeme","Livestock",21961,52572,158557,3704,35
+"2013","Pirkanmaa","Livestock",51736,97646,939078,8414,1476
+"2013","Paeijaet-Haeme","Livestock",23281,31284,4012,2703,24
+"2013","Kymenlaakso","Livestock",16179,9386,5249,3246,22
+"2013","South Karelia","Livestock",20820,19922,24578,1902,..
+"2013","Etelae-Savo","Livestock",45869,12314,173036,6661,47
+"2013","Pohjois-Savo","Livestock",121345,30590,33191,4326,283
+"2013","North Karelia","Livestock",57095,9872,33488,4772,103
+"2013","Central Finland","Livestock",50045,13334,52425,8004,30
+"2013","South Ostrobothnia","Livestock",109582,225308,3133433,6425,1423
+"2013","Ostrobothnia","Livestock",48347,193347,456849,10425,171
+"2013","Central Ostrobothnia","Livestock",55475,14390,188,2647,..
+"2013","North Ostrobothnia","Livestock",133362,58245,15670,11062,100
+"2013","Kainuu","Livestock",23065,..,10006,2518,14
+"2013","Lapland","Livestock",33966,..,4820,14774,27
+"2013","Aaland","Livestock",8232,..,19397,13126,44
+"2014","Uusimaa","Livestock",22696,30262,14814,8352,234
+"2014","Varsinais-Suomi","Livestock",37731,350476,4793277,18266,363
+"2014","Satakunta","Livestock",31852,137583,2374503,5006,140
+"2014","Kanta-Haeme","Livestock",22249,47736,148176,3690,33
+"2014","Pirkanmaa","Livestock",52678,91579,993866,9176,1358
+"2014","Paeijaet-Haeme","Livestock",23386,29778,11649,2632,25
+"2014","Kymenlaakso","Livestock",15977,8501,5317,2978,24
+"2014","South Karelia","Livestock",20309,16548,17721,2049,..
+"2014","Etelae-Savo","Livestock",45808,11853,185862,7180,61
+"2014","Pohjois-Savo","Livestock",121774,26427,34855,4651,255
+"2014","North Karelia","Livestock",55968,7014,30240,4504,77
+"2014","Central Finland","Livestock",49935,10737,52849,7853,35
+"2014","South Ostrobothnia","Livestock",110263,216652,3305116,6937,1395
+"2014","Ostrobothnia","Livestock",48981,190566,552374,10975,181
+"2014","Central Ostrobothnia","Livestock",55282,13240,131,3163,..
+"2014","North Ostrobothnia","Livestock",133744,54720,19725,11112,80
+"2014","Kainuu","Livestock",23547,899,10252,2663,..
+"2014","Lapland","Livestock",33671,..,5075,14379,22
+"2014","Aaland","Livestock",8468,..,21056,12322,60
+"2015","Uusimaa","Livestock",23499,30674,13483,8494,163
+"2015","Varsinais-Suomi","Livestock",38437,361367,4656297,20896,321
+"2015","Satakunta","Livestock",31469,134291,2449600,5571,133
+"2015","Kanta-Haeme","Livestock",22245,48176,142030,4493,41
+"2015","Pirkanmaa","Livestock",53232,87846,1001554,10868,1298
+"2015","Paeijaet-Haeme","Livestock",22759,27251,13836,3908,64
+"2015","Kymenlaakso","Livestock",15805,9052,9365,3433,20
+"2015","South Karelia","Livestock",19923,16448,20088,2171,9
+"2015","Etelae-Savo","Livestock",45005,10820,166721,7384,61
+"2015","Pohjois-Savo","Livestock",121374,27900,35751,5204,271
+"2015","North Karelia","Livestock",55526,6988,29499,5193,70
+"2015","Central Finland","Livestock",49430,10806,52614,8949,36
+"2015","South Ostrobothnia","Livestock",112163,209226,3699504,8391,1720
+"2015","Ostrobothnia","Livestock",49590,189992,583594,12331,153
+"2015","Central Ostrobothnia","Livestock",54541,16014,229,4576,..
+"2015","North Ostrobothnia","Livestock",134015,54394,16423,13525,87
+"2015","Kainuu","Livestock",23662,1069,15559,3148,..
+"2015","Lapland","Livestock",33250,..,5163,14906,36
+"2015","Aaland","Livestock",8792,..,15622,11797,..
+"2016","Uusimaa","Livestock",23350,30359,8916,8465,170
+"2016","Varsinais-Suomi","Livestock",38300,344685,4650891,21175,296
+"2016","Satakunta","Livestock",32193,135128,2934042,5130,302
+"2016","Kanta-Haeme","Livestock",22196,47156,170434,4570,35
+"2016","Pirkanmaa","Livestock",52831,86408,1152570,11752,1322
+"2016","Paeijaet-Haeme","Livestock",22444,29363,13742,4576,55
+"2016","Kymenlaakso","Livestock",15827,8146,8202,3241,14
+"2016","South Karelia","Livestock",19564,15928,26543,2379,16
+"2016","Etelae-Savo","Livestock",44035,10946,144237,7726,32
+"2016","Pohjois-Savo","Livestock",119878,24783,30992,5325,306
+"2016","North Karelia","Livestock",54440,7074,25893,4828,60
+"2016","Central Finland","Livestock",48548,9592,48598,9129,31
+"2016","South Ostrobothnia","Livestock",112642,215322,3619578,8441,1649
+"2016","Ostrobothnia","Livestock",50156,198174,557625,12059,322
+"2016","Central Ostrobothnia","Livestock",54631,15960,176,5003,..
+"2016","North Ostrobothnia","Livestock",137021,54248,16522,14295,66
+"2016","Kainuu","Livestock",19358,1218,15371,2765,..
+"2016","Lapland","Livestock",32304,..,2664,13773,38
+"2016","Aaland","Livestock",9303,..,17861,11864,61
+"2017","Uusimaa","Livestock",22655,26380,9757,7790,1322
+"2017","Varsinais-Suomi","Livestock",38221,328446,5173930,21829,368
+"2017","Satakunta","Livestock",31998,126903,2749292,5074,249
+"2017","Kanta-Haeme","Livestock",21560,42276,154671,4734,38
+"2017","Pirkanmaa","Livestock",50833,76156,796006,11166,1430
+"2017","Paeijaet-Haeme","Livestock",21990,26075,13103,4512,29
+"2017","Kymenlaakso","Livestock",15185,5726,8550,4076,..
+"2017","South Karelia","Livestock",19129,11652,20836,2442,10
+"2017","Etelae-Savo","Livestock",42446,8163,162010,7599,27
+"2017","Pohjois-Savo","Livestock",118159,21837,28774,5402,293
+"2017","North Karelia","Livestock",51842,4406,27734,4480,59
+"2017","Central Finland","Livestock",47085,8449,48433,9696,17
+"2017","South Ostrobothnia","Livestock",112340,200577,3325763,7744,1032
+"2017","Ostrobothnia","Livestock",50046,186969,560498,12505,177
+"2017","Central Ostrobothnia","Livestock",53264,11362,36,4825,..
+"2017","North Ostrobothnia","Livestock",135603,49423,17975,14138,56
+"2017","Kainuu","Livestock",19144,..,14961,2831,12
+"2017","Lapland","Livestock",32451,..,4855,13719,54
+"2017","Aaland","Livestock",9227,..,18436,11364,..
+"2018","Uusimaa","Livestock",21738,26355,13508,7409,1678
+"2018","Varsinais-Suomi","Livestock",39027,327947,5266686,22636,370
+"2018","Satakunta","Livestock",32432,128969,3043922,5177,264
+"2018","Kanta-Haeme","Livestock",21114,41895,177619,4861,248
+"2018","Pirkanmaa","Livestock",49566,72312,1042310,11112,1294
+"2018","Paeijaet-Haeme","Livestock",20941,25217,11292,4256,..
+"2018","Kymenlaakso","Livestock",14790,6735,14829,4250,43
+"2018","South Karelia","Livestock",18601,11153,19411,2612,7
+"2018","Etelae-Savo","Livestock",41851,7402,199923,7286,18
+"2018","Pohjois-Savo","Livestock",116437,18764,54461,5919,393
+"2018","North Karelia","Livestock",50174,5578,27383,4376,11
+"2018","Central Finland","Livestock",46456,8069,85829,9236,13
+"2018","South Ostrobothnia","Livestock",111904,191867,3558958,7993,889
+"2018","Ostrobothnia","Livestock",50271,156099,563106,11720,59
+"2018","Central Ostrobothnia","Livestock",52557,11771,67,5183,..
+"2018","North Ostrobothnia","Livestock",135633,47688,20035,14084,50
+"2018","Kainuu","Livestock",18350,..,15081,2637,8
+"2018","Lapland","Livestock",31470,..,5116,13842,30
+"2018","Aaland","Livestock",8965,..,20771,10410,..
+"2019","Uusimaa","Livestock",20883,26751,15155,6932,1870
+"2019","Varsinais-Suomi","Livestock",36585,305696,5264359,21171,574
+"2019","Satakunta","Livestock",32171,124293,3135225,4536,128
+"2019","Kanta-Haeme","Livestock",19941,40005,175587,4865,486
+"2019","Pirkanmaa","Livestock",47852,70759,1248073,9716,1249
+"2019","Paeijaet-Haeme","Livestock",19579,22352,2241,3848,..
+"2019","Kymenlaakso","Livestock",14501,5283,8641,3015,69
+"2019","South Karelia","Livestock",17975,11102,18266,2470,..
+"2019","Etelae-Savo","Livestock",41514,6988,138848,6326,49
+"2019","Pohjois-Savo","Livestock",112398,18501,55259,5608,403
+"2019","North Karelia","Livestock",48078,5260,27708,4014,7
+"2019","Central Finland","Livestock",45767,8052,52132,8906,14
+"2019","South Ostrobothnia","Livestock",110164,192820,3665811,8073,922
+"2019","Ostrobothnia","Livestock",49197,172169,505228,11557,23
+"2019","Central Ostrobothnia","Livestock",51141,11219,97,4958,..
+"2019","North Ostrobothnia","Livestock",132871,50269,14299,13764,20
+"2019","Kainuu","Livestock",17997,..,10670,2667,12
+"2019","Lapland","Livestock",30757,..,2953,13962,35
+"2019","Aaland","Livestock",8251,..,19360,8488,..
+"2020","Uusimaa","Livestock",20249,16050,10906,6824,2032
+"2020","Varsinais-Suomi","Livestock",37095,311483,4746666,20565,565
+"2020","Satakunta","Livestock",32077,124307,3407687,4100,113
+"2020","Kanta-Haeme","Livestock",19645,43091,200842,4912,..
+"2020","Pirkanmaa","Livestock",47098,75735,1091701,9399,1262
+"2020","Paeijaet-Haeme","Livestock",18787,24386,779,3650,..
+"2020","Kymenlaakso","Livestock",14024,4617,8758,3503,40
+"2020","South Karelia","Livestock",17193,11293,27640,2623,..
+"2020","Etelae-Savo","Livestock",40023,6468,145463,6004,26
+"2020","Pohjois-Savo","Livestock",110868,18920,47271,5262,253
+"2020","North Karelia","Livestock",45845,5613,24963,3473,21
+"2020","Central Finland","Livestock",44580,7972,51148,8769,13
+"2020","South Ostrobothnia","Livestock",112637,201024,3240790,8530,1081
+"2020","Ostrobothnia","Livestock",49277,170417,528988,10791,25
+"2020","Central Ostrobothnia","Livestock",50030,12201,63,4155,..
+"2020","North Ostrobothnia","Livestock",131711,52546,13982,13701,20
+"2020","Kainuu","Livestock",17231,..,10197,2447,4
+"2020","Lapland","Livestock",29564,..,2933,12766,46
+"2020","Aaland","Livestock",8451,133,16103,8697,88
+"2021","Uusimaa","Livestock",20607,23222,13775,6525,1783
+"2021","Varsinais-Suomi","Livestock",38510,312968,5108195,20397,555
+"2021","Satakunta","Livestock",32621,128078,3274021,4146,136
+"2021","Kanta-Haeme","Livestock",19813,40938,198524,4487,..
+"2021","Pirkanmaa","Livestock",46836,77383,855446,9133,1237
+"2021","Paeijaet-Haeme","Livestock",19378,21422,608,4177,6
+"2021","Kymenlaakso","Livestock",12490,4149,8276,2737,66
+"2021","South Karelia","Livestock",16907,11256,17791,2369,..
+"2021","Etelae-Savo","Livestock",36896,6809,135089,5103,33
+"2021","Pohjois-Savo","Livestock",112756,17397,53483,5511,131
+"2021","North Karelia","Livestock",46202,4275,25824,2797,16
+"2021","Central Finland","Livestock",42968,7455,49756,8755,16
+"2021","South Ostrobothnia","Livestock",114717,226688,3531632,8577,1202
+"2021","Ostrobothnia","Livestock",48475,155712,508299,10202,20
+"2021","Central Ostrobothnia","Livestock",48590,12611,..,3642,..
+"2021","North Ostrobothnia","Livestock",131753,56483,18940,10971,23
+"2021","Kainuu","Livestock",16916,..,..,2215,5
+"2021","Lapland","Livestock",28746,..,..,11449,34
+"2021","Aaland","Livestock",8857,..,21938,7893,89
+"2022","Uusimaa","Livestock",20444,15475,12224,6726,1742
+"2022","Varsinais-Suomi","Livestock",39146,306802,4931034,21477,608
+"2022","Satakunta","Livestock",32464,114697,3510294,4297,163
+"2022","Kanta-Haeme","Livestock",19976,45957,190890,4765,..
+"2022","Pirkanmaa","Livestock",46889,73832,1331718,9362,1307
+"2022","Paeijaet-Haeme","Livestock",18745,24888,..,4073,..
+"2022","Kymenlaakso","Livestock",12165,3714,9056,2512,82
+"2022","South Karelia","Livestock",16582,5593,17928,2160,..
+"2022","Etelae-Savo","Livestock",36420,5332,136171,5119,37
+"2022","Pohjois-Savo","Livestock",110278,17145,47058,5145,101
+"2022","North Karelia","Livestock",44540,3574,25805,2505,17
+"2022","Central Finland","Livestock",41458,7160,10127,8576,28
+"2022","South Ostrobothnia","Livestock",114831,217211,3558134,8056,1234
+"2022","Ostrobothnia","Livestock",49338,155739,527915,10499,25
+"2022","Central Ostrobothnia","Livestock",47944,11413,..,3658,..
+"2022","North Ostrobothnia","Livestock",131137,51259,16465,10832,117
+"2022","Kainuu","Livestock",16362,..,..,2604,6
+"2022","Lapland","Livestock",26765,..,..,12561,61
+"2022","Aaland","Livestock",8465,..,..,7157,88
+"2023","Uusimaa","Livestock",20037,20024,14558,5626,1562
+"2023","Varsinais-Suomi","Livestock",39148,281267,5007959,20484,572
+"2023","Satakunta","Livestock",31984,101406,4064383,3787,164
+"2023","Kanta-Haeme","Livestock",20306,35514,155551,4534,647
+"2023","Pirkanmaa","Livestock",46640,69460,938973,9324,1237
+"2023","Paeijaet-Haeme","Livestock",17965,22393,..,3350,18
+"2023","Kymenlaakso","Livestock",12414,2600,6587,2434,98
+"2023","South Karelia","Livestock",15682,3894,14473,1715,..
+"2023","Etelae-Savo","Livestock",36086,5268,132672,5211,40
+"2023","Pohjois-Savo","Livestock",107844,16022,48767,4820,48
+"2023","North Karelia","Livestock",43216,3815,23517,2259,11
+"2023","Central Finland","Livestock",40316,6400,64661,8234,34
+"2023","South Ostrobothnia","Livestock",114693,214345,3364102,5818,1095
+"2023","Ostrobothnia","Livestock",49233,142009,394123,10407,27
+"2023","Central Ostrobothnia","Livestock",46889,12194,..,3731,..
+"2023","North Ostrobothnia","Livestock",127835,51251,12487,10036,143
+"2023","Kainuu","Livestock",16020,..,..,1920,..
+"2023","Lapland","Livestock",26181,..,..,11538,38
+"2023","Aaland","Livestock",8162,..,..,6832,65
+"2024","Uusimaa","Livestock",19349,..,18496,..,..
+"2024","Varsinais-Suomi","Livestock",38270,..,5356589,..,..
+"2024","Satakunta","Livestock",30938,..,3531740,..,..
+"2024","Kanta-Haeme","Livestock",19734,..,150115,..,..
+"2024","Pirkanmaa","Livestock",44837,..,892074,..,..
+"2024","Paeijaet-Haeme","Livestock",17385,..,..,..,..
+"2024","Kymenlaakso","Livestock",12177,..,..,..,..
+"2024","South Karelia","Livestock",15046,..,..,..,..
+"2024","Etelae-Savo","Livestock",35518,..,119713,..,..
+"2024","Pohjois-Savo","Livestock",104680,..,45281,..,..
+"2024","North Karelia","Livestock",42099,..,17292,..,..
+"2024","Central Finland","Livestock",38521,..,57791,..,..
+"2024","South Ostrobothnia","Livestock",111819,..,4064541,..,..
+"2024","Ostrobothnia","Livestock",47790,..,394498,..,..
+"2024","Central Ostrobothnia","Livestock",44861,..,..,..,..
+"2024","North Ostrobothnia","Livestock",122439,..,12538,..,..
+"2024","Kainuu","Livestock",14935,..,..,..,..
+"2024","Lapland","Livestock",25519,..,..,..,..
+"2024","Aaland","Livestock",7922,..,..,..,..
