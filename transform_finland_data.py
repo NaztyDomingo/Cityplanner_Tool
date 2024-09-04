@@ -29,7 +29,7 @@ def _run_this_once_from_raw_data_to_transform_data() -> None:
     _make_dataframe_to_capital_and_english_letters(df)
 
 def _make_dataframe_to_capital_and_english_letters(df: pd.DataFrame) -> None:
-    df['Region'] = df['Region'].apply(dh.replace_special_chars('ÅLAND'))
+    df['Region'] = df['Region'].apply(dh.replace_special_chars)
     print(df['Region'])
     
     
