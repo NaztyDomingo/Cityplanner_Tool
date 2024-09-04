@@ -2,11 +2,31 @@ import filehandler_helper as fh
 import xlsx_to_csv_converter as convert
 import pandas as pd
 import os
+import dataframe_helper as dh
 
 def main() -> None:
     _run_this_once_from_raw_data_to_transform_data()
-    _remove_columns_not_needed()
+    
     print('All files transformed...')
+
+def _renaming_columns_and_adding_columns_together() -> None:
+    filename = 'finland_regions_emissions.csv'
+    folder = 'transformed_finland_data'
+    filepath = fh.get_path_of_file(folder, filename)
+    df = pd.read_csv(filepath, index_col=False)
+    
+
+    df['Transportation'] = df['Road transport'] + df['Water transport'] + df['Rail transport']
+    df.drop(columns=['Road transport', 'Water transport', 'Rail transport'], inplace=True)
+    df['Electricity and District Heating'] = df['Electricity'] + df['District heating']
+    df['Other heating'] = df['Electric heating'] + df['Oil heating'] + df['Other heating']
+    df.drop(columns=['Electricity', 'District heating', 'Oil heating', 'Electric heating'], inplace=True)
+    df.rename(columns={'Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population'}, inplace=True)
+    
+    df = dh.order_dataframe(df)
+    print(df)
+
+
 
 def _run_this_once_from_raw_data_to_transform_data() -> None:
     convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
@@ -19,11 +39,10 @@ def _run_this_once_from_raw_data_to_transform_data() -> None:
 
     # TODO: Change special characters in file to english
 
-    # TODO: Remove columns that we shouldn't use
+    _remove_columns_not_needed_and_flip_columns_and_rows()
+    _renaming_columns_and_adding_columns_together()
 
-    # TODO: Make Emission types into columns
-
-def _remove_columns_not_needed() -> None:
+def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     filename = 'finland_regions_emissions.csv'
     folder = 'transformed_finland_data'
     filepath = fh.get_path_of_file(folder, filename)
@@ -35,27 +54,30 @@ def _remove_columns_not_needed() -> None:
     region_column = df_cleaned[['Region']]
     df_cleaned.drop(columns=['Region'], axis=1, inplace=True)
 
-    #Split dataset into two dataframes
-    split_row_index = 14
+    #Split dataset into multiple dataframes
+    chunk_size = 14
 
-    # Splitting the DataFrame
-    first_split_df = df_cleaned.iloc[:split_row_index]
-    df2 = df_cleaned.iloc[split_row_index:]
+    dfs = [df_cleaned.iloc[i:i + chunk_size].reset_index(drop=True) for i in range(0, len(df_cleaned), chunk_size)]
+    
+    df_combined = dfs[0]
+    df_combined.set_index('Hinku calculation without emission credits', inplace=True)
+        
+    for df in dfs[1:]:
+        df.set_index('Hinku calculation without emission credits', inplace=True)
+        
+        df_combined = pd.concat([df_combined, df], axis=1)
+            
+    df_combined.reset_index(inplace=True)    
+    df_combined = df_combined.transpose()
+    
+    df_combined.to_csv(filepath)
 
-    print("First DataFrame:")
-    print(first_split_df)
-    print("\nSecond DataFrame:")
-    print(df2)
-
-    df_cleaned = first_split_df.transpose()
-    df_cleaned.to_csv(filepath)
-
+    # Flipping rows and columns and adding region back
     df = pd.read_csv(filepath, header=1)
-    #df['Region'] = region_column
+    df['Region'] = region_column
 
     column_to_rename = df.columns[0]
     df.rename(columns={column_to_rename: 'Year'}, inplace=True)
-    print(df.head(15))
     df.to_csv(filepath, index=False)
 
 def _remove_nan_from_csv_file() -> None:
@@ -120,6 +142,6 @@ def _removing_headers_and_bad_rows() -> None:
         column_to_drop = df.columns[0]
         df.drop(columns=[column_to_drop], inplace=True)
         df.to_csv(filepath_of_file, index=False)
-
+ 
 if __name__ == "__main__":
     main()
