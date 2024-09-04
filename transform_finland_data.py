@@ -18,8 +18,6 @@ def _run_this_once_from_raw_data_to_transform_data() -> None:
     _make_custom_csv_file()
     _remove_nan_from_csv_file()
 
-    # TODO: Change special characters in file to english
-
     # This is where i turned the dataframes around - making the columns become rows and rows become columns
     _remove_columns_not_needed_and_flip_columns_and_rows()
     # Cleaning more data, renaming columns, adding them together and setting the correct order of the dataframe
@@ -30,10 +28,12 @@ def _run_this_once_from_raw_data_to_transform_data() -> None:
 
 def _make_dataframe_to_capital_and_english_letters(df: pd.DataFrame) -> None:
     df['Region'] = df['Region'].apply(dh.replace_special_chars)
-    print(df['Region'])
-    
-    
+    df['Region'] = df['Region'].apply(dh.replace_word_to_camel_case)
 
+    filename = 'finland_regions_emissions.csv'
+    folder = 'transformed_finland_data'
+    filepath = fh.get_path_of_file(folder, filename)
+    df.to_csv(filepath, index=False)
 
 def _renaming_columns_and_adding_columns_together() -> pd.DataFrame:
     filename = 'finland_regions_emissions.csv'
@@ -45,10 +45,10 @@ def _renaming_columns_and_adding_columns_together() -> pd.DataFrame:
     df['Transportation'] = df['Road transport'] + df['Water transport'] + df['Rail transport']
     df.drop(columns=['Road transport', 'Water transport', 'Rail transport'], inplace=True)
     df['Electricity and District Heating'] = df['Electricity'] + df['District heating']
-    df['Other heating'] = df['Electric heating'] + df['Oil heating'] + df['Other heating']
+    df['Other Heating'] = df['Electric heating'] + df['Oil heating'] + df['Other heating']
     df.drop(columns=['Electricity', 'District heating', 'Oil heating', 'Electric heating'], inplace=True)
     df.rename(columns={'Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population'}, inplace=True)
-    
+    df = df.round(1)
     df = dh.order_dataframe(df)
     return df
 
