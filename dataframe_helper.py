@@ -13,3 +13,9 @@ def order_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                         'Industry',
                         'Total Emissions']
     return df[list_with_columns]
+
+def replace_special_chars(region_name: str) -> str:
+    replacements = {'Ä': 'AE', 'Ö': 'OE', 'Å': 'AA'}
+    for char, replacement in replacements.items():
+        region_name = region_name.replace(char, replacement)
+    return region_name
