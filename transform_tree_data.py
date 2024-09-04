@@ -20,13 +20,18 @@ def main() -> None:
     filepath_of_file_avg = os.path.join(filepath_transformed, 'avg_co2_consumption.csv')
     avg_df.to_csv(filepath_of_file_avg, header=False)
 
-    # Add average co2 consumption data into tree data and save as final_tree_info.csv
+    # Add average co2 consumption data into tree data df
     filepath_of_file_tree = os.path.join(filepath_transformed, 'tree_info.csv')
     tree_df = pd.read_csv(filepath_of_file_tree)
 
     AVGS = ['746.540244', '300.573171', '989.442683', '443.270610', '424.915610', '412.949146', '353.181585']
     tree_df.insert(4, "Average_co2_consumption", AVGS)
 
+    # Change co2 consumption from kg to kt
+    tree_df['Average_co2_consumption'] = tree_df['Average_co2_consumption'].astype(float)
+    tree_df['Average_co2_consumption'] = tree_df['Average_co2_consumption'].values / 1000000
+
+    # Save as final_tree_info.csv
     filepath_of_file_final = os.path.join(filepath_transformed, 'final_tree_info.csv')
     tree_df.to_csv(filepath_of_file_final)
 
