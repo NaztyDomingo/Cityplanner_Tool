@@ -38,7 +38,6 @@ def _tranform_cities_data() -> None:
     folder = 'transformed_finland_data'
     filepath = fh.get_path_of_file(folder, filename)
     df = pd.read_csv(filepath, index_col=False)
-
     city_column = df['City'].copy()
     region_column = df['Region'].copy()
 
@@ -49,21 +48,28 @@ def _tranform_cities_data() -> None:
     combined_df.to_csv(filepath, header = False)
 
     df = pd.read_csv(filepath)
-    
-    df['City'] = city_column
-    df['Region'] = region_column
 
     df.drop(columns=['per person, tCO2e', 'F-gases', 'Emission credits'], inplace=True)
     
+    #print(city_column.tail(60))
+    city_column = _remove_extra_rows_from_not_unique_series(city_column, 11)
+    region_column = _remove_extra_rows_from_unique_series(region_column, 11)
+    df['City'] = city_column
+    df['Region'] = region_column
+    #print(df, city_column, region_column)
     df = _rename_columns(df)
-
-    df['Region'] = df['Region'].apply(dh.replace_special_chars)
+    
+    """df['Region'] = df['Region'].apply(dh.replace_special_chars)
     df['Region'] = df['Region'].apply(dh.replace_word_to_camel_case)
     df['City'] = df['City'].apply(dh.replace_special_chars)
-    df['City'] = df['City'].apply(dh.replace_word_to_camel_case)
-    
+    df['City'] = df['City'].apply(dh.replace_word_to_camel_case)"""
+
     df.to_csv(filepath, index=False)
 
+def _remove_extra_rows_from_not_unique_series(series: pd.Series, chunk_size: int) -> pd.Series:    
+
+    
+    return series
 
 def _rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     df.rename(columns={'Hinku calculation without emission credits': 'Year','Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population', 'total emissions, ktCO2e': 'Total Emissions'}, inplace=True)
@@ -132,20 +138,22 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     # Flipping rows and columns and adding region back
     df = pd.read_csv(filepath, header = 1)
     
-    # Process region column which is too big for the dataframe, since i have been remo
-    region_column.reset_index(drop=True, inplace=True)
-    
-    limited_series = []
-
-    for value in region_column.unique():
-        limited_values = region_column[region_column == value].head(11)
-        limited_series.append(limited_values)
-
-    result_series = pd.concat(limited_series, ignore_index=True)
+    result_series = _remove_extra_rows_from_unique_series(region_column, 11)
 
     df['Region'] = result_series
 
     df.to_csv(filepath, index=False)
+
+def _remove_extra_rows_from_unique_series(series: pd.Series, amount_to_keep: int) -> pd.Series:
+    series.reset_index(drop=True, inplace=True)
+
+    limited_series = []
+    
+    for value in series.unique():
+        limited_values = series[series == value].head(amount_to_keep)
+        limited_series.append(limited_values)
+        
+    return pd.concat(limited_series, ignore_index=True)
 
 def _remove_nan_from_csv_file() -> None:
     filename = 'finland_regions_emissions.csv'
