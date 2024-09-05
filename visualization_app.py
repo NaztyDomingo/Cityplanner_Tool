@@ -105,11 +105,17 @@ app.layout = html.Div([
 
 def update_graph(n_clicks, input_value):
 
-    emission_sources = [
+    """ emission_sources_city = [
                 "Electricity", "Electric heating", "District heating", "Oil heating", "Other heating",
                 "Industry", "Machinery", "Road transport", "Rail transport", "Water transport",
                 "Agriculture", "Waste treatment", "F-gases"
+                ] """
+    
+    emission_sources = [
+                'Waste and Sewage', 'Machinery', 'Electricity and District Heating',
+                'Other Heating', 'Agriculture', 'Transportation','Industry'
                 ]
+
     
     # TODO: fix color palette and make it work with default graphs
     color_palette = {
@@ -131,16 +137,11 @@ def update_graph(n_clicks, input_value):
     if n_clicks == 0 or not input_value:
 
         # Filter the DataFrame to only include relevant emission sources
-        filtered_df = fin_regions_df[fin_regions_df['Hinku calculation without emission credits'].isin(emission_sources)]
-
+        filtered_df = fin_regions_df[fin_regions_df['Year'] == 2022][['Region'] + emission_sources]
+        
         # For default stacked bar chart for Finland
         # Pivot the DataFrame to have Regions as index and emission sources as columns
-        pivot_df = filtered_df.pivot_table(
-            index='Region',
-            columns='Hinku calculation without emission credits',
-            values='Total emissions2022(kt CO2e)',
-            aggfunc='sum'
-        ).fillna(0)
+        pivot_df = filtered_df.set_index('Region')
 
         fig_bar = go.Figure()
 
@@ -151,7 +152,7 @@ def update_graph(n_clicks, input_value):
                     x=pivot_df.index,
                     y=pivot_df[emission_source],
                     name=emission_source,
-                    #marker_color=color_palette[emission_source]
+                    marker_color=color_palette[emission_source]
                 ))
         fig_bar.update_layout(
             barmode='stack',
@@ -161,15 +162,16 @@ def update_graph(n_clicks, input_value):
         )
 
         # For default pie chart for Finland
-        aggregated_df = filtered_df.groupby('Hinku calculation without emission credits')['Total emissions2022(kt CO2e)'].sum().reset_index()
+        aggregated_df = filtered_df[emission_sources].sum().reset_index()
+        aggregated_df.columns = ['Hinku calculation without emission credits', 'Total Emissions 2022']
+
         fig_pie = px.pie(
             aggregated_df,
-            values='Total emissions2022(kt CO2e)',
+            values='Total Emissions 2022',
             names='Hinku calculation without emission credits',
-            # color_discrete_sequence=[color_palette[source] for source in emission_sources],
             hole=.5,
             title='Total Emissions by Source in Finland (2022)'
-        )
+)
         fig_pie.update_traces(textinfo='none') # remove percentages from figure
 
         return fig_bar, fig_pie
@@ -221,7 +223,7 @@ def update_graph(n_clicks, input_value):
 
             city_data = fin_cities_df[fin_cities_df['City'].str.contains(input_value, case=False, na=False)]
 
-            pie_data = city_data[city_data['Hinku calculation without emission credits'].isin(emission_sources)]
+            pie_data = city_data[city_data['Hinku calculation without emission credits'].isin(emission_source)]
 
             pie_chart_data = pie_data[['Hinku calculation without emission credits', str(year)]]
             pie_chart_data = pie_chart_data.groupby('Hinku calculation without emission credits')[str(year)].sum().reset_index()
