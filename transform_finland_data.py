@@ -31,7 +31,46 @@ def _run_this_once_from_raw_data_to_transform_regions_data() -> None:
     # Converting finland cities file to csv
     convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
     
+    _tranform_cities_data()
 
+def _tranform_cities_data() -> None:
+    filename = 'finland_cities_emissions.csv'
+    folder = 'transformed_finland_data'
+    filepath = fh.get_path_of_file(folder, filename)
+    df = pd.read_csv(filepath, index_col=False)
+
+    city_column = df['City'].copy()
+    region_column = df['Region'].copy()
+
+    df.drop(columns=['Region', 'City', '2006','2007','2008','2009','2011','2012','2013','2014'], axis=1, inplace=True)
+
+    combined_df = _split_dataframe_and_transpose(df, 17)
+
+    combined_df.to_csv(filepath, header = False)
+
+    df = pd.read_csv(filepath)
+    
+    df['City'] = city_column
+    df['Region'] = region_column
+
+    df.drop(columns=['per person, tCO2e', 'F-gases', 'Emission credits'], inplace=True)
+    
+    df = _rename_columns(df)
+    df.to_csv(filepath, index=False)
+
+
+def _rename_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df.rename(columns={'Hinku calculation without emission credits': 'Year','Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population', 'total emissions, ktCO2e': 'Total Emissions'}, inplace=True)
+
+    df['Transportation'] = df['Road transport'] + df['Water transport'] + df['Rail transport']
+    df['Electricity and District Heating'] = df['Electricity'] + df['District heating']
+    df['Other Heating'] = df['Electric heating'] + df['Oil heating'] + df['Other heating']
+
+    df.drop(columns=['Road transport', 'Water transport', 'Rail transport','Electricity', 'District heating', 'Oil heating', 'Electric heating', 'Other heating'], inplace=True)
+    
+    df = df.round(1)
+    df = dh.order_dataframe(df)
+    return df
 
 def _make_dataframe_to_capital_and_english_letters(df: pd.DataFrame) -> None:
     df['Region'] = df['Region'].apply(dh.replace_special_chars)
@@ -48,16 +87,25 @@ def _renaming_columns_and_adding_columns_together() -> pd.DataFrame:
     filepath = fh.get_path_of_file(folder, filename)
     df = pd.read_csv(filepath, index_col=False)
     
-
-    df['Transportation'] = df['Road transport'] + df['Water transport'] + df['Rail transport']
-    df.drop(columns=['Road transport', 'Water transport', 'Rail transport'], inplace=True)
-    df['Electricity and District Heating'] = df['Electricity'] + df['District heating']
-    df['Other Heating'] = df['Electric heating'] + df['Oil heating'] + df['Other heating']
-    df.drop(columns=['Electricity', 'District heating', 'Oil heating', 'Electric heating'], inplace=True)
-    df.rename(columns={'Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population'}, inplace=True)
-    df = df.round(1)
-    df = dh.order_dataframe(df)
+    df = _rename_columns(df)
     return df
+
+def _split_dataframe_and_transpose(df: pd.DataFrame, chunk_size: int) -> pd.DataFrame:
+
+    dfs = [df.iloc[i:i + chunk_size].reset_index(drop=True) for i in range(0, len(df), chunk_size)]
+    
+    df_combined = dfs[0]
+    df_combined.set_index('Hinku calculation without emission credits', inplace=True)
+        
+    for df in dfs[1:]:
+        df.set_index('Hinku calculation without emission credits', inplace=True)
+        
+        df_combined = pd.concat([df_combined, df], axis=1)
+            
+    df_combined.reset_index(inplace=True)    
+    df_combined = df_combined.transpose()
+
+    return df_combined
 
 def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     filename = 'finland_regions_emissions.csv'
@@ -70,27 +118,13 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     df_cleaned.drop(columns=['2006','2007','2008','2009','2011','2012','2013','2014'], axis=1, inplace=True)
     region_column = df_cleaned['Region'].copy()
     df_cleaned.drop(columns=['Region'], axis=1, inplace=True)
-
-    #Split dataset into multiple dataframes
-    chunk_size = 14
-
-    dfs = [df_cleaned.iloc[i:i + chunk_size].reset_index(drop=True) for i in range(0, len(df_cleaned), chunk_size)]
     
-    df_combined = dfs[0]
-    df_combined.set_index('Hinku calculation without emission credits', inplace=True)
-        
-    for df in dfs[1:]:
-        df.set_index('Hinku calculation without emission credits', inplace=True)
-        
-        df_combined = pd.concat([df_combined, df], axis=1)
-            
-    df_combined.reset_index(inplace=True)    
-    df_combined = df_combined.transpose()
+    df_combined = _split_dataframe_and_transpose(df_cleaned, 14)
     
     df_combined.to_csv(filepath)
 
     # Flipping rows and columns and adding region back
-    df = pd.read_csv(filepath, header=1)
+    df = pd.read_csv(filepath, header = 1)
     
     # Process region column which is too big for the dataframe, since i have been remo
     region_column.reset_index(drop=True, inplace=True)
@@ -105,8 +139,6 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
 
     df['Region'] = result_series
 
-    column_to_rename = df.columns[0]
-    df.rename(columns={column_to_rename: 'Year'}, inplace=True)
     df.to_csv(filepath, index=False)
 
 def _remove_nan_from_csv_file() -> None:
