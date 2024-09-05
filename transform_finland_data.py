@@ -56,20 +56,47 @@ def _tranform_cities_data() -> None:
     region_column = _remove_extra_rows_from_unique_series(region_column, 11)
     df['City'] = city_column
     df['Region'] = region_column
-    #print(df, city_column, region_column)
+
     df = _rename_columns(df)
     
-    """df['Region'] = df['Region'].apply(dh.replace_special_chars)
+    df['Region'] = df['Region'].apply(dh.replace_special_chars)
     df['Region'] = df['Region'].apply(dh.replace_word_to_camel_case)
     df['City'] = df['City'].apply(dh.replace_special_chars)
-    df['City'] = df['City'].apply(dh.replace_word_to_camel_case)"""
+    df['City'] = df['City'].apply(dh.replace_word_to_camel_case)
 
     df.to_csv(filepath, index=False)
 
 def _remove_extra_rows_from_not_unique_series(series: pd.Series, chunk_size: int) -> pd.Series:    
 
+    indices = [11, 17, 28, 34, 45, 51, 62, 68, 79, 85, 96, 102, 113, 119, 130, 136, 147, 153, 164, 170]
+    indices = increase_indices(indices, count= 18)
     
+    data_list = series.tolist()
+    
+    # Include the end of the list
+    indices = sorted(set(indices + [len(data_list)]))
+    
+    # Split the list based on indices
+    split_lists = [data_list[i:j] for i, j in zip([0] + indices[:-1], indices)]
+    
+    filtered_list = [sublist for sublist in split_lists if len(sublist) == 11]
+    
+    flat_list = [item for sublist in filtered_list for item in sublist]
+
+    series = pd.Series(flat_list)
+
     return series
+
+def increase_indices(indices, increments=[11, 6], count=10):
+    result = indices.copy()  # Start with the initial indices
+    last_value = indices[-1]  # Start from the last value of the initial indices
+    
+    for i in range(count):  # Generate 'count' more indices
+        increment = increments[i % len(increments)]  # Alternate between 11 and 6
+        last_value += increment
+        result.append(last_value)
+    
+    return result
 
 def _rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     df.rename(columns={'Hinku calculation without emission credits': 'Year','Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population', 'total emissions, ktCO2e': 'Total Emissions'}, inplace=True)
