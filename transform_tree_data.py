@@ -33,7 +33,7 @@ def main() -> None:
 
     # Save as final_tree_info.csv
     filepath_of_file_final = os.path.join(filepath_transformed, 'final_tree_info.csv')
-    tree_df.to_csv(filepath_of_file_final)
+    tree_df.to_csv(filepath_of_file_final, index=False)
 
 if __name__ == "__main__":
     main()
