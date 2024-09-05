@@ -43,3 +43,7 @@ def replace_word_to_camel_case(word: str) -> str:
     for char, replacement in replacements.items():
         word = word.replace(char, replacement)
     return word
+
+def drop_columns(df: pd.DataFrame, columns_to_be_dropped: list) -> pd.DataFrame:
+    df.drop(columns=columns_to_be_dropped, inplace=True, axis=1)
+    return df

@@ -41,7 +41,7 @@ def _tranform_cities_data() -> None:
     city_column = df['City'].copy()
     region_column = df['Region'].copy()
 
-    df.drop(columns=['Region', 'City', '2006','2007','2008','2009','2011','2012','2013','2014'], axis=1, inplace=True)
+    df = dh.drop_columns(df, ['Region', 'City', '2006','2007','2008','2009','2011','2012','2013','2014'])
 
     combined_df = _split_dataframe_and_transpose(df, 17)
 
@@ -49,9 +49,8 @@ def _tranform_cities_data() -> None:
 
     df = pd.read_csv(filepath)
 
-    df.drop(columns=['per person, tCO2e', 'F-gases', 'Emission credits'], inplace=True)
-    
-    #print(city_column.tail(60))
+    df = dh.drop_columns(df, ['per person, tCO2e', 'F-gases', 'Emission credits'])
+
     city_column = _remove_extra_rows_from_not_unique_series(city_column, 11)
     region_column = _remove_extra_rows_from_unique_series(region_column, 11)
     df['City'] = city_column
@@ -66,7 +65,7 @@ def _tranform_cities_data() -> None:
 
     df.to_csv(filepath, index=False)
 
-def _remove_extra_rows_from_not_unique_series(series: pd.Series, chunk_size: int) -> pd.Series:    
+def _remove_extra_rows_from_not_unique_series(series: pd.Series, amount_of_rows_to_keep: int) -> pd.Series:    
 
     indices = [11, 17, 28, 34, 45, 51, 62, 68, 79, 85, 96, 102, 113, 119, 130, 136, 147, 153, 164, 170]
     indices = increase_indices(indices, count= 18)
@@ -229,13 +228,16 @@ def _removing_headers_and_bad_rows() -> None:
     # Taking files from finland_data making it a list, then writing them to csv files to folder transformed_finland_data
     folder_name_input = 'finland_data/regions'
     folder_name_output = 'transformed_finland_data/regions'
-    convert.convert_list_with_files(fh.get_list_with_names_from_folder(fh.get_path_of_folder(folder_name_input)), fh.get_path_of_folder(folder_name_input), fh.get_path_of_folder(folder_name_output))
-    filepath = fh.get_path_of_folder(folder_name_output)
-    list_with_files = fh.get_list_with_names_from_folder(filepath)
+    filepath_output = fh.get_path_of_folder(folder_name_output)
+    filepath_input = fh.get_path_of_folder(folder_name_input)
+    list_with_files_input = fh.get_list_with_names_from_folder(filepath_input)
+    list_with_files_output = fh.get_list_with_names_from_folder(filepath_output)
+    convert.convert_list_with_files(list_with_files_input, filepath_input, filepath_output)
+    
     
     # Removing headers and bad rows
-    for file in list_with_files:
-        filepath_of_file = os.path.join(filepath, file)
+    for file in list_with_files_output:
+        filepath_of_file = os.path.join(filepath_output, file)
         df = pd.read_csv(filepath_of_file, header=0)
         df.to_csv(filepath_of_file, header=False, index=False)
 
