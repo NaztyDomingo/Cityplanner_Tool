@@ -5,12 +5,19 @@ import os
 import dataframe_helper as dh
 
 def main() -> None:
-    _run_this_once_from_raw_data_to_transform_data()
-    
+    _run_this_once_from_raw_data_to_transform_regions_data()
+    _run_this_once_from_raw_data_to_transform_cities_data()
     print('All files transformed...')
 
-def _run_this_once_from_raw_data_to_transform_data() -> None:
+def _run_this_once_from_raw_data_to_transform_cities_data() -> None:
+    #================== CITIES ==================
+    # Converting finland cities file to csv
     convert.convert_single_file('finland_data', 'transformed_finland_data', 'finland_cities_emissions')
+    
+    
+def _run_this_once_from_raw_data_to_transform_regions_data() -> None:
+    #================== REGIONS ==================
+    # Removing bad headers and rows in regions files
     _removing_headers_and_bad_rows()
     _change_values()
 
