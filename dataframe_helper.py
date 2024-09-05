@@ -1,20 +1,36 @@
 import pandas as pd
 
 def order_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    list_with_columns = ['Year',
-                        'Region',
-                        'Population',
-                        'Waste and Sewage',
-                        'Machinery',
-                        'Electricity and District Heating',
-                        'Other Heating',
-                        'Agriculture',
-                        'Transportation',
-                        'Industry',
-                        'Total Emissions']
-    return df[list_with_columns]
+    if len(df.columns) == 11:
+        list_with_columns = ['Year',
+                            'Region',
+                            'Population',
+                            'Waste and Sewage',
+                            'Machinery',
+                            'Electricity and District Heating',
+                            'Other Heating',
+                            'Agriculture',
+                            'Transportation',
+                            'Industry',
+                            'Total Emissions']
+        return df[list_with_columns]
+    else:
+        list_with_columns = ['Year',
+                             'City',
+                            'Region',
+                            'Population',
+                            'Waste and Sewage',
+                            'Machinery',
+                            'Electricity and District Heating',
+                            'Other Heating',
+                            'Agriculture',
+                            'Transportation',
+                            'Industry',
+                            'Total Emissions']
+        return df[list_with_columns]
 
 def replace_special_chars(word: str) -> str:
+    word = word.upper()
     replacements = {'Ä': 'AE', 'Ö': 'OE', 'Å': 'AA'}
     for char, replacement in replacements.items():
         word = word.replace(char, replacement)
