@@ -30,6 +30,7 @@ def order_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         return df[list_with_columns]
 
 def replace_special_chars(word: str) -> str:
+    word = word.upper()
     replacements = {'Ä': 'AE', 'Ö': 'OE', 'Å': 'AA'}
     for char, replacement in replacements.items():
         word = word.replace(char, replacement)

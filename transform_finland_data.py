@@ -56,6 +56,12 @@ def _tranform_cities_data() -> None:
     df.drop(columns=['per person, tCO2e', 'F-gases', 'Emission credits'], inplace=True)
     
     df = _rename_columns(df)
+
+    df['Region'] = df['Region'].apply(dh.replace_special_chars)
+    df['Region'] = df['Region'].apply(dh.replace_word_to_camel_case)
+    df['City'] = df['City'].apply(dh.replace_special_chars)
+    df['City'] = df['City'].apply(dh.replace_word_to_camel_case)
+    
     df.to_csv(filepath, index=False)
 
 
