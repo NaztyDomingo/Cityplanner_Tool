@@ -37,6 +37,13 @@ def replace_special_chars(word: str) -> str:
         word = word.replace(char, replacement)
     return word
 
+def reverse_special_chars_finish(word: str) -> str:
+    word = word.upper()
+    replacements =  {'AE': 'Ä', 'OE': 'Ö', 'AA': 'Å'}
+    for char, replacement in replacements.items():
+        word = word.replace(char, replacement)
+    return word
+
 def replace_word_to_camel_case(word: str) -> str:
     word = word.lower()
     word_capitalized = word.title()
