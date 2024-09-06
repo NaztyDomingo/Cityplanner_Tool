@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import dash
 from dash import Dash, dcc, html, Input, Output, State, callback_context, dash_table
 import visualization_data as vd
+import dataframe_helper as dh
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
@@ -11,9 +12,9 @@ app.title = "Dash Data Visualization"
 
 # Load and unpack dfs
 dfs = vd.load_data()
-fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, tree_df = dfs
+fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, combined_cities_df, combined_regions_df, tree_df = dfs
 
-# modify tree_df to fit table better
+# modify tree df to fit table better
 tree_df.drop(columns=['Maintenance'], inplace=True)
 
 # Define the layout and style of the app
@@ -104,7 +105,7 @@ app.layout = html.Div([
 def update_graph(n_clicks, input_value):
     
     emission_sources = [
-                'Waste and Sewage', 'Machinery', 'Electricity and District Heating',
+                'Waste And Sewage', 'Machinery', 'Electricity And District Heating',
                 'Other Heating', 'Agriculture', 'Transportation','Industry'
                 ]
 
@@ -125,6 +126,7 @@ def update_graph(n_clicks, input_value):
     "F-gases": "#98df8a"
     }
 
+    # Default view for the page = User has not entered search parameters
     if n_clicks == 0 or not input_value:
 
         # Filter the DataFrame to only include relevant emission sources
@@ -169,10 +171,14 @@ def update_graph(n_clicks, input_value):
         # TODO: Add two charts for default Sweden data?
         # Also consider how will that effect the overall layout (N of outputs)
 
+    # User has entered a search parameter
     if n_clicks > 0 and input_value:
+
+        # Create new column with special character versions of city names (SWE and FIN cities)
+        combined_cities_df['City With Special Characters'] = combined_cities_df['City'].apply(dh.reverse_special_chars_finish)
         
         # Filter data based on user input for line chart
-        filtered_line_data = fin_cities_df[fin_cities_df['City'].str.contains(input_value, case=False)]        
+        filtered_line_data = combined_cities_df[combined_cities_df['City With Special Characters'].str.contains(input_value, case=False)]
         
         # Line chart
         if not filtered_line_data.empty:
@@ -196,9 +202,9 @@ def update_graph(n_clicks, input_value):
             fig_line = {} # return empty figure
         
         # Filter data based on user input for pie chart
-        filtered_pie_data = fin_cities_df[
-            (fin_cities_df['City'].str.contains(input_value, case=False)) &
-            (fin_cities_df['Year'] == 2022)
+        filtered_pie_data = combined_cities_df[
+            (combined_cities_df['City With Special Characters'].str.contains(input_value, case=False)) &
+            (combined_cities_df['Year'] == 2022)
         ]
 
         # Pie chart

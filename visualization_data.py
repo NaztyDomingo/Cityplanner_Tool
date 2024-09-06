@@ -22,11 +22,10 @@ def load_data():
     swe_regions_df = pd.read_csv(filepath_of_swe_regions)
 
     # TODO: Combine SWE+FIN datagit status
-    #combine_cities = [fin_cities_df, swe_cities_df]
-    #combined_cities_df = pd.concat(combine_cities)
-    #combine_regions = [fin_regions_df, swe_regions_df]
-    #combined_regions_df = pd.concat(combine_regions)
-    # TODO: remember to add these dfs to the return list: combined_cities_df, combined_regions_df
+    combine_cities = [fin_cities_df, swe_cities_df]
+    combined_cities_df = pd.concat(combine_cities)
+    combine_regions = [fin_regions_df, swe_regions_df]
+    combined_regions_df = pd.concat(combine_regions)
 
     # Tree dataframe
     filepath = fh.get_path_of_folder('transformed_tree_data')
@@ -34,5 +33,5 @@ def load_data():
     tree_df = pd.read_csv(filepath_of_trees)
 
     # Return all dfs
-    list_of_dfs = [fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, tree_df]
+    list_of_dfs = [fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, combined_cities_df, combined_regions_df, tree_df]
     return list_of_dfs
