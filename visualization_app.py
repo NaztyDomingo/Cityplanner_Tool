@@ -16,7 +16,7 @@ fin_cities_df, fin_regions_df, tree_df = dfs
 # modify tree_df to fit table better
 tree_df.drop(columns=['Maintenance'], inplace=True)
 
-# Define the layout of the app
+# Define the layout and style of the app
 app.layout = html.Div([
 
     html.H1(
@@ -69,6 +69,7 @@ app.layout = html.Div([
         # Pie chart for emissions by source
         dcc.Graph(id='pie-chart', style={'display': 'inline-block', 'width': '32%', 'height': '500px'}),
 
+    # Tree data table
     dash_table.DataTable(
         id='data-table',
         columns=[{"name": i, "id": i} for i in tree_df.columns],
@@ -88,12 +89,9 @@ app.layout = html.Div([
             {
                 'if': {'row_index': 'odd'},
                 'backgroundColor': 'rgb(248, 248, 248)'
-            }
-        ],
-        page_size=10
-    )
+            }],
+        page_size=10)
     ]),
-
 ])
 
 # Define the callback for the input field and button
@@ -104,20 +102,13 @@ app.layout = html.Div([
 )
 
 def update_graph(n_clicks, input_value):
-
-    """ emission_sources_city = [
-                "Electricity", "Electric heating", "District heating", "Oil heating", "Other heating",
-                "Industry", "Machinery", "Road transport", "Rail transport", "Water transport",
-                "Agriculture", "Waste treatment", "F-gases"
-                ] """
     
     emission_sources = [
                 'Waste and Sewage', 'Machinery', 'Electricity and District Heating',
                 'Other Heating', 'Agriculture', 'Transportation','Industry'
                 ]
 
-    
-    # TODO: fix color palette and make it work with default graphs
+    # TODO: fix color palette and make it work with default graphs, add default order in legend
     color_palette = {
     "Electricity": "#1f77b4",
     "Electric heating": "#ff7f0e",
@@ -143,16 +134,15 @@ def update_graph(n_clicks, input_value):
         # Pivot the DataFrame to have Regions as index and emission sources as columns
         pivot_df = filtered_df.set_index('Region')
 
+        # Add traces to bar chart for each emission source and update layout
         fig_bar = go.Figure()
-
-        # Add traces for each emission source, update layout and show figure
         for emission_source in emission_sources:
             if emission_source in pivot_df.columns:
                 fig_bar.add_trace(go.Bar(
                     x=pivot_df.index,
                     y=pivot_df[emission_source],
                     name=emission_source,
-                    marker_color=color_palette[emission_source]
+                    #marker_color=color_palette[emission_sources] # not working
                 ))
         fig_bar.update_layout(
             barmode='stack',
@@ -171,7 +161,7 @@ def update_graph(n_clicks, input_value):
             names='Hinku calculation without emission credits',
             hole=.5,
             title='Total Emissions by Source in Finland (2022)'
-)
+        )
         fig_pie.update_traces(textinfo='none') # remove percentages from figure
 
         return fig_bar, fig_pie
@@ -182,59 +172,49 @@ def update_graph(n_clicks, input_value):
     if n_clicks > 0 and input_value:
         
         # Filter data based on user input for line chart
-        fin_city_line_df = fin_cities_df[fin_cities_df['Hinku calculation without emission credits'] == 'total emissions, ktCO2e']
-        filtered_line_data = fin_city_line_df[fin_city_line_df['City'].str.contains(input_value, case=False)]
+        filtered_line_data = fin_cities_df[fin_cities_df['City'].str.contains(input_value, case=False)]        
         
-        # Filter data based on user input for pie chart
-        exclude_terms = ['per person, tCO2e', 'population', 'total emissions, ktCO2e', 'Emission credits']
-        fin_city_pie_df = fin_cities_df[fin_cities_df['Hinku calculation without emission credits'].isin(exclude_terms)]
-        filtered_pie_data = fin_city_pie_df[fin_city_pie_df['City'].str.contains(input_value, case=False)]       
-
         # Line chart
         if not filtered_line_data.empty:
-            # Convert the DataFrame from wide to long format for plotting
-            # years = ['1990'] + [str(year) for year in range(2005, 2023)] # if you wanna add 1990, messed up x-scale though
-            melted_line_data = filtered_line_data.melt(id_vars=['City'], value_vars=[str(year) for year in range(2005, 2023)],
-                                             var_name='Year', value_name='Total Emissions (ktCO2e)')
 
-            # Ensure the 'Year' column is numeric for plotting
-            melted_line_data['Year'] = pd.to_numeric(melted_line_data['Year'])
+            # Ensure the 'Year' column is treated as a string (categorical data) to have equally spaced x-axis
+            filtered_line_data['Year'] = filtered_line_data['Year'].astype(str)
 
-            # Create a line chart
+            # Create a line chart using Year and Total Emissions
             fig_line = px.line(
-                melted_line_data,
+                filtered_line_data,
                 x='Year',
-                y='Total Emissions (ktCO2e)',
-                title=f'Total Yearly Emissions for {input_value.capitalize()}'
+                y='Total Emissions',
+                title=f'Total Yearly Emissions for {input_value.capitalize()}',
+                category_orders={'Year': sorted(filtered_line_data['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
             )
             fig_line.update_xaxes(
-                tickmode='array',  # Define ticks manually
-                tickvals=list(range(2005, 2023)),
-                # tickangle=75
+                type='category',  # Treat 'Year' as a category
+                #tickangle=75
             )
-
         else:
             fig_line = {} # return empty figure
         
+        # Filter data based on user input for pie chart
+        filtered_pie_data = fin_cities_df[
+            (fin_cities_df['City'].str.contains(input_value, case=False)) &
+            (fin_cities_df['Year'] == 2022)
+        ]
+
         # Pie chart
         if not filtered_pie_data.empty:
 
-            year = 2022 # TODO: Change year? (2022 or 2030 or something else?)
+            # Prepare data for pie chart
+            pie_chart_data = filtered_pie_data[emission_sources].melt(var_name='Source', value_name='Emissions')
+            pie_chart_data = pie_chart_data.groupby('Source')['Emissions'].sum().reset_index()
 
-            city_data = fin_cities_df[fin_cities_df['City'].str.contains(input_value, case=False, na=False)]
-
-            pie_data = city_data[city_data['Hinku calculation without emission credits'].isin(emission_source)]
-
-            pie_chart_data = pie_data[['Hinku calculation without emission credits', str(year)]]
-            pie_chart_data = pie_chart_data.groupby('Hinku calculation without emission credits')[str(year)].sum().reset_index()
-
-            # Create a pie chart
+            ## Create a pie chart
             fig_pie = px.pie(
-                pie_chart_data, values='2022',
-                names='Hinku calculation without emission credits',
+                pie_chart_data,
+                values='Emissions',
+                names='Source',
                 hole=.5,
-                title=f'Emissions by Sector in {input_value.capitalize()} in {year}'
-
+                title=f'Emissions by Sector in {input_value.capitalize()} in 2022'
             )
             fig_pie.update_traces(textinfo='none') # remove percentages from figure
 
@@ -243,11 +223,10 @@ def update_graph(n_clicks, input_value):
 
         return fig_line, fig_pie # Always return figures
         
-    # Default return when no input is provided or the conditions are not met
+    # Default return when no input is provided
     return {}, {}
 
-
-# Run the app
+# Run app
 if __name__ == '__main__':
     app.run_server(debug=True)
 
