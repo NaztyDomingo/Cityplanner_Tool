@@ -11,7 +11,7 @@ app.title = "Dash Data Visualization"
 
 # Load and unpack dfs
 dfs = vd.load_data()
-fin_cities_df, fin_regions_df, tree_df = dfs
+fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, tree_df = dfs
 
 # modify tree_df to fit table better
 tree_df.drop(columns=['Maintenance'], inplace=True)
