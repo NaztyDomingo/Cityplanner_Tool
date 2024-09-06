@@ -60,10 +60,11 @@ def insert_table(df: pd.DataFrame, connection_instance: psycopg2.connect) -> Non
     df.to_sql(name ='finland_regions_emissions', con = engine, if_exists ='replace', index=False)
 """
 def to_database(db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> None:
-    folder_name = 'transformed_finland_data'
-    
-    filepath = fh.get_path_of_folder(folder_name)
-    list_with_folder_names = fh.get_list_with_names_from_folder(filepath)
+    filepath = fh.get_path_of_folder('')
+    list_with_folder_names = fh.search_folder_get_list_with_foldernames('transformed_', filepath)
+    print(list_with_folder_names)
+    """filepath = fh.get_path_of_folder(folder_name)
+    list_with_folder_names = fh.get_list_with_names_from_folder(filepath)"""
 
     for filename in list_with_folder_names:
         filepath = fh.get_path_of_file(folder_name, filename) # CHANGE
