@@ -5,8 +5,8 @@ import os
 
 CURR_DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
-file_path = glob.glob(os.path.join(CURR_DIR_PATH, 'sweden_region_emission.csv'))[0]
-output_file = os.path.join(CURR_DIR_PATH, 'sweden_regions_emissions.csv')
+file_path = glob.glob(os.path.join(CURR_DIR_PATH, 'sweden_cities_emission.csv'))[0]
+output_file = os.path.join(CURR_DIR_PATH, 'sweden_cities_emissions.csv')
 
 def preprocess_column(column: pd.Series) -> pd.Series:
     column = column.astype(str)
@@ -35,6 +35,9 @@ def convert_emissions(data: pd.DataFrame) -> pd.DataFrame:
 
 data = pd.read_csv(file_path)
 
-data = convert_emissions(data)
+print(data)
+
+data = t.rename_reorder_columns(data)
+print(data)
 
 t.data_to_csv(data)
