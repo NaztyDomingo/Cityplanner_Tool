@@ -8,9 +8,9 @@ def convert_single_file(input_folder: str, output_folder: str, filename_without_
     output_filename = filename_without_extension + '.csv'
     filepath = fh.get_path_of_file(input_folder, input_filename)
 
-    df = pd.read_excel(filepath, index_col=2)
+    df = pd.read_excel(filepath, index_col=0)
     output_filepath = fh.get_path_of_file(output_folder, output_filename)
-    df.to_csv(output_filepath)
+    df.to_csv(output_filepath, header=True)
 
 def convert_list_with_files(list_with_files: np.array, input_folder_path: str, output_folder_path: str) -> None:
     for file in list_with_files:
@@ -20,4 +20,4 @@ def convert_list_with_files(list_with_files: np.array, input_folder_path: str, o
         extension = '.csv'
         filename = filename + extension
         filepath = os.path.join(output_folder_path, filename)
-        df.to_csv(filepath, header=False)
+        df.to_csv(filepath, header=True)
