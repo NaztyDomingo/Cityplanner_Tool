@@ -21,7 +21,7 @@ def load_data():
     swe_cities_df = pd.read_csv(filepath_of_swe_cities)
     swe_regions_df = pd.read_csv(filepath_of_swe_regions)
 
-    # TODO: Combine SWE+FIN data
+    # TODO: Combine SWE+FIN datagit status
     #combine_cities = [fin_cities_df, swe_cities_df]
     #combined_cities_df = pd.concat(combine_cities)
     #combine_regions = [fin_regions_df, swe_regions_df]
