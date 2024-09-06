@@ -3,7 +3,6 @@ import xlsx_to_csv_converter as convert
 import pandas as pd
 import os
 import dataframe_helper as dh
-import load_data
 
 def main() -> None:
     _transform_regions_data()

@@ -53,10 +53,10 @@ def replace_word_to_camel_case(word: str) -> str:
     return word
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
-    df.rename(columns={'Hinku calculation without emission credits': 'Year','Waste treatment': 'Waste and Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population', 'total emissions, ktCO2e': 'Total Emissions'}, inplace=True)
+    df.rename(columns={'Hinku calculation without emission credits': 'Year','Waste treatment': 'Waste And Sewage', 'total emissions. ktCO2e': 'Total Emissions', 'population': 'Population', 'total emissions, ktCO2e': 'Total Emissions'}, inplace=True)
 
     df['Transportation'] = df['Road transport'] + df['Water transport'] + df['Rail transport']
-    df['Electricity and District Heating'] = df['Electricity'] + df['District heating']
+    df['Electricity And District Heating'] = df['Electricity'] + df['District heating']
     df['Other Heating'] = df['Electric heating'] + df['Oil heating'] + df['Other heating']
 
     df.drop(columns=['Road transport', 'Water transport', 'Rail transport','Electricity', 'District heating', 'Oil heating', 'Electric heating', 'Other heating'], inplace=True)
