@@ -11,7 +11,8 @@ CURR_DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 # output_file = os.path.join(CURR_DIR_PATH, 'emissions_region_all.csv')
 
 # output_file = os.path.join(CURR_DIR_PATH, 'city_emission_dirty.csv')
-output_file = os.path.join(CURR_DIR_PATH, 'city_emission.csv')
+# output_file = os.path.join(CURR_DIR_PATH, 'city_emission.csv')
+output_file = os.path.join(CURR_DIR_PATH, 'sweden_regions_emissions.csv')
 
 
 def converter(data: pd.DataFrame) -> pd.DataFrame:
