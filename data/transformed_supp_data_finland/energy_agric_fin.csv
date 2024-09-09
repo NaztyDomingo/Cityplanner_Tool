@@ -1,4 +1,4 @@
-year,oil_gas_heating_of_floor_area_in_m2,coal_coke_heating_of_floor_area_in_m2,wood_peat_heating_of_floor_area_in_m2,other_heating_of_floor_area_in_m2,region,wood_fuels_in_1000m3,population,utilized_agric_area_in_1000_hectares,cattle,pigs,poultry,sheep,goats
+Year,Oil Gas Floor Heating of Floor Area m2,Coal Coke Heating of Floor Area m2,Wood Peat Heating of Floor Area m2,Other Heating of Floor Area m2,Region,Wood Fuels In 1000m3,population,Utilized Agric Area in m2,Cattle,Pigs,Poultry,Sheep,Goats
 2011,15753293,318763,2020710,3518792,Uusimaa,756,1549058,184.3,23073,34067,13150,7661,248
 2011,10804827,145284,2550992,1910472,Southwest Finland,491,467217,295.8,36593,368638,3742539,14400,524
 2011,6214158,132591,1907226,1655509,Satakunta,1242,225302,144.9,32000,153390,2202634,6096,275

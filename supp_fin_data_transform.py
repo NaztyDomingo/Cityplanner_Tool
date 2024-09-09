@@ -5,7 +5,7 @@ CURR_DIR_PATH = os.getcwd()
 FILE_PATH = CURR_DIR_PATH + \
     '/Cityplanner_Tool/data/ml_supplementary_data/original/finland'
 OUTPUT_PATH = CURR_DIR_PATH + \
-    '/Cityplanner_Tool/data/transformed_supp_data_finland'
+    '/Cityplanner_Tool/data/transformed_supp_data_finland/'
 
 # assign port to region in this dict, use for mapping later
 PORT_REG_DICT = {'Pori': 'Satakunta',
@@ -225,7 +225,7 @@ def transform_ship_and_car_data() -> pd.DataFrame:
     ship_int_df = clean_df(ship_int_df, [], ['Tons of Ship Cargo'])
     ship_passenger_df = clean_df(ship_passenger_df, [], ['Num of Ship Passengers'])
 
-    # added explicit conversion here due to toruble with clean_df func (will fix properly later)
+    # added explicit conversion here due to trouble with clean_df func (will fix properly later)
     ship_int_df['Tons Of Ship Cargo'] = pd.to_numeric(ship_int_df['Tons Of Ship Cargo'], errors='coerce').fillna(0).astype(int)
     ship_passenger_df['Num Of Ship Passengers'] = pd.to_numeric(ship_passenger_df['Num Of Ship Passengers'], errors='coerce').fillna(0).astype(int)
 
