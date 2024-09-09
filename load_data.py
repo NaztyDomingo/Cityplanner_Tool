@@ -7,8 +7,6 @@ import psycopg2
 def main() -> None:
     db_username, db_password = get_db_username_and_password('DEV', 'cityplanner_db_username', 'cityplanner_db_password')
     to_database(db_username, db_password, get_db_name())
-    l = pull_all_tables_return_list_with_dfs(db_username, db_password, get_db_name())
-    print(l)
 
 def get_db_name() -> str:
     return 'cityplanner_db'
