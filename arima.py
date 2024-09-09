@@ -13,6 +13,7 @@ FILE_PATH = CURR_DIR_PATH + '/Cityplanner_Tool/data/'
 region = 'Aaland'
 
 emission_df = pd.read_csv(f'{FILE_PATH}transformed_finland_data/finland_regions_emissions.csv')
+emission_df = emission_df[emission_df['Year'] > 2010]
 
 # use reg to filter df
 emission_df = emission_df[emission_df['Region'] == region].copy()
@@ -34,8 +35,8 @@ print('p-value after log transformation:', result[1])
 auto_model = auto_arima(emission_series, seasonal=False, trace=True, error_action='ignore', suppress_warnings=True)
 print(f"Optimal ARIMA model: {auto_model.order}")
 
-# fit model
-model = ARIMA(emission_series_diff, order=(0, 1, 2))
+# fit model using (p,d,q) from automodel
+model = ARIMA(emission_series_diff, order=(auto_model.order))
 model_fit = model.fit()
 
 # forecats three years (steps) ahead
@@ -46,11 +47,11 @@ last_year = emission_series.index[-1]
 # conv back from log to original scale 
 forecast_years = [last_year + pd.DateOffset(years=i) for i in range(1, 4)]
 forecast_log_original = emission_series.iloc[-1] + forecast_log_diff.cumsum()
-forecast_original = np.exp(forecast_log_original)  # Apply exponential to reverse log transformation
+forecast_original = np.exp(forecast_log_original) 
 forecast_original.index = forecast_years
 
 # combine actual and forecasted data
-combined_series = pd.Series(np.exp(emission_series), index=X)  # Convert back to original scale
+combined_series = pd.Series(np.exp(emission_series), index=X)  # convert back to original scale
 combined_series = combined_series._append(forecast_original)
 print(combined_series)
 
