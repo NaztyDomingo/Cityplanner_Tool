@@ -23,17 +23,32 @@ def main() -> None:
     # Add average co2 consumption data into tree data df
     filepath_of_file_tree = os.path.join(filepath_transformed, 'tree_info.csv')
     tree_df = pd.read_csv(filepath_of_file_tree)
-
     AVGS = ['746.540244', '300.573171', '989.442683', '443.270610', '424.915610', '412.949146', '353.181585']
-    tree_df.insert(4, "Average_co2_consumption", AVGS)
+    tree_df.insert(4, "Average CO2 Consumption", AVGS)
 
     # Change co2 consumption from kg to kt
-    tree_df['Average_co2_consumption'] = tree_df['Average_co2_consumption'].astype(float)
-    tree_df['Average_co2_consumption'] = tree_df['Average_co2_consumption'].values / 1000000
+    tree_df['Average CO2 Consumption'] = tree_df['Average CO2 Consumption'].astype(float)
+    tree_df['Average CO2 Consumption'] = tree_df['Average CO2 Consumption'].values / 1000000
 
+    # Rename height column
+    tree_df.rename(columns={'Average_heigh_range_m': 'Average Height'}, inplace=True)
+    
+    # Reorder columns
+    tree_df = tree_df.reindex(columns=['Tree',
+                                       'Species',
+                                       'Type',    
+                                       'Description',
+                                       'Average Height',
+                                       'Average CO2 Consumption',
+                                       'Habitat',
+                                       'Maintenance',
+                                       'Light',
+                                       'Soil',
+                                       'Water'])
+    
     # Save as final_tree_info.csv
     filepath_of_file_final = os.path.join(filepath_transformed, 'final_tree_info.csv')
-    tree_df.to_csv(filepath_of_file_final)
+    tree_df.to_csv(filepath_of_file_final, index=False)
 
 if __name__ == "__main__":
     main()

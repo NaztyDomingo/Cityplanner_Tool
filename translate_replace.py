@@ -22,42 +22,42 @@ def replace_special_characters(text: str) -> str:
     text = text.replace('Ö', 'OE')
     return text
 
-def replace_lan_with_county(text: str) -> str:
-    return text.replace('laen', 'county')
 
 def translate_replace(data: pd.DataFrame) -> pd.DataFrame:
-   
-    translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
-    data = data.rename(columns=translated_headers)
-    
-    data.columns = [replace_special_characters(col) for col in data.columns]
-    
-    return data
+    # header_translation = {
+    #     'Huvudsektor': 'Main sector',
+    #     'Undersektor': 'Subsector',
+    #     'Län': 'County',
+    #     'Kommun': 'Municipality'
+    # }
 
-def rename_columns(data: pd.DataFrame) -> pd.DataFrame:
-
-    data.rename(columns={
-        'Unnamed: 0': 'Main sector',
-        'Unnamed: 1': 'Subsector',
-        'Unnamed: 2': 'County',
-        'Unnamed: 3': 'Municipality'
-    }, inplace=True)
-
+    value_translation = {
+        'Main sector':{
+            'Arbetsmaskiner':'Machinery',
+            'Avfall (inkl.avlopp)':'Waste And Sewage',
+            'Egen uppärmning av bostäder och lokaler':'Other Heating',
+            'El och fjärrvärme':'Electricity And District Heating',
+            'Industri (energi + processer)':'Industry',
+            'Transporter':'Transportation'
+        }}
+       
+        
+        
     
-    year_columns = data.columns[4:]  
-    new_column_names = ['Total greenhouse gases in CO2-equivalent ' + str(year) for year in year_columns]
-    data.columns = list(data.columns[:4]) + new_column_names
+    # translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
+    # data = data.rename(columns=translated_headers)
+    
+    # data.columns = [replace_special_characters(col) for col in data.columns]
+
+    # translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
+    # data = data.rename(columns=translated_headers)
+    
+
+    for col in ['Main sector']:
+        if col in data.columns:
+            data[col] = data[col].map(value_translation[col]).fillna(data[col])
 
     data['County'] = data['County'].apply(replace_special_characters)
     data['Municipality'] = data['Municipality'].apply(replace_special_characters)
-
-    data['County'] = data['County'].apply(replace_lan_with_county)
-
-    return data
-
-def drop_second_row(data: pd.DataFrame) -> pd.DataFrame:
-    data = data.drop(index=1)
-
-    data = data.reset_index(drop=True)
     
     return data

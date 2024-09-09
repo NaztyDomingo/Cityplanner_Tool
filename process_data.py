@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import glob
 import read_data as rd
-import translate_replace as tr
+import data.transforming_sweden_data.translate_replace as tr
 import transform as t
 
 CURR_DIR_PATH = os.path.dirname(os.path.abspath(__file__))
