@@ -28,43 +28,20 @@ combined_cities_df = pd.concat(combine_list)
 app.layout = html.Div([
 
     html.H1(
-        "Cityplanner Tool",
-        style={
-            'textAlign': 'center',
-                        'fontFamily': 'Open Sans, verdana, arial, sans-serif'
-        }),
+        "Cityplanner Tool"),
     
     # Input and Button
     html.Div(
-        style={
-            'display': 'flex',
-            'justifyContent': 'center',  
-            'alignItems': 'center',      
-            'margin': '20px',
-                        'fontFamily': 'Open Sans, verdana, arial, sans-serif'             
-        },
         children=[
             dcc.Input(
                 id='variable-input',
                 type='text',
-                placeholder='Enter a city',
-                style={
-                    'width': '400px',
-                    'height': '50px',
-                    'fontSize': '18px'
-                }
+                placeholder='Enter a city'
             ),
             html.Button(
                 'Submit',
                 id='submit-button',
-                n_clicks=0,
-                style={
-                    'height': '50px',
-                    'fontSize': '18px',
-                    'padding': '10px 20px',
-                    'marginLeft': '10px',
-                    #'background-color': '#d3dcd5'
-                }
+                n_clicks=0
             )
         ]
     ),
