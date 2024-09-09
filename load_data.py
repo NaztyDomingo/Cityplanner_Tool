@@ -6,7 +6,9 @@ import psycopg2
 
 def main() -> None:
     db_username, db_password = get_db_username_and_password('DEV', 'cityplanner_db_username', 'cityplanner_db_password')
-    to_database(db_username, db_password, get_db_name)
+    to_database(db_username, db_password, get_db_name())
+    l = pull_all_tables_return_list_with_dfs(db_username, db_password, get_db_name())
+    print(l)
 
 def get_db_name() -> str:
     return 'cityplanner_db'
@@ -33,47 +35,33 @@ def _create_engine(db_username: str, db_password: str, db_name: str, port_number
     )   
     return postgres_engine
 
-def _create_table(table_name: str, connection_instance: psycopg2.connect) -> None:
-    cur = connection_instance.cursor()
-
-    cur.execute(f"""CREATE TABLE {table_name}(
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(50) UNIQUE NOT NULL
-                )""")
-    
-    connection_instance.commit()
-    cur.close()
-    connection_instance.close()
-
-def insert_table(df: pd.DataFrame, connection_instance: psycopg2.connect) -> None:
-    cur = connection_instance.cursor()
-
-    cur.execute(f"""INSERT INTO tiril_test (name) VALUES('Tiril')""")
-
-    cur.commit()
-    cur.close()
-    connection_instance.close()
-
-"""def to_database(df: pd.DataFrame, db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> None:
-    engine = _create_engine(db_username, db_password, db_name, port_number, hostname)
-
-    df.to_sql(name ='finland_regions_emissions', con = engine, if_exists ='replace', index=False)
-"""
 def to_database(db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> None:
     filepath = fh.get_path_of_folder('')
     list_with_folder_names = fh.search_folder_get_list_with_foldernames('transformed_', filepath)
-    print(list_with_folder_names)
-    """filepath = fh.get_path_of_folder(folder_name)
-    list_with_folder_names = fh.get_list_with_names_from_folder(filepath)"""
+    list_with_files_to_load = fh.get_tupled_list_with_filename_and_filepath_from_list_with_folder_names(list_with_folder_names)
 
-    for filename in list_with_folder_names:
-        filepath = fh.get_path_of_file(folder_name, filename) # CHANGE
+    for filename, filepath in list_with_files_to_load:
         df = pd.read_csv(filepath)
-        
+
         engine = _create_engine(db_username, db_password, db_name, port_number, hostname)
 
         df.to_sql(name = filename, con = engine, if_exists ='replace', index=False)
 
+def select_table(table_name: str, engine: create_engine) -> pd.DataFrame:
+    df = pd.read_sql_query(f'SELECT * FROM {table_name}', con=engine)
+    return df
+
+def pull_all_tables_return_list_with_dfs(db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> None:
+    filepath = fh.get_path_of_folder('')
+    list_with_folder_names = fh.search_folder_get_list_with_foldernames('transformed_', filepath)
+    list_with_files_to_load = fh.get_tupled_list_with_filename_and_filepath_from_list_with_folder_names(list_with_folder_names)
+
+    engine = _create_engine(db_username, db_password, db_name, port_number, hostname)
+    list_with_dfs = []
+    for filename, filepath in list_with_files_to_load:
+        list_with_dfs.append(select_table(filename, engine))
+
+    return list_with_dfs
 
 if __name__ == "__main__":
     main()
