@@ -1,0 +1,248 @@
+Year,Region,Tons Of Ship Cargo,Num Of Ship Passengers,Num of Registered Automobiles
+2011,Aaland,0.0,0.0,24352
+2011,Central Finland,0.0,0.0,175588
+2011,Central Ostrobothnia,0.0,0.0,49272
+2011,Kainuu,0.0,0.0,55192
+2011,Kanta-Haeme,0.0,0.0,123623
+2011,Kymenlaakso,0.0,0.0,120013
+2011,Lapland,0.0,0.0,130786
+2011,North Karelia,0.0,0.0,118794
+2011,North Ostrobothnia,0.0,0.0,251246
+2011,North Savo,0.0,0.0,167257
+2011,Ostrobothnia,0.0,0.0,127870
+2011,Paeijaet-Haeme,0.0,0.0,134153
+2011,Pirkanmaa,0.0,0.0,311739
+2011,Satakunta,0.0,0.0,171262
+2011,South Karelia,0.0,0.0,91392
+2011,South Ostrobothnia,0.0,0.0,159524
+2011,South Savo,0.0,0.0,100264
+2011,Southwest Finland,0.0,0.0,311496
+2011,Uusimaa,0.0,0.0,863068
+2012,Aaland,0.0,0.0,25235
+2012,Central Finland,0.0,0.0,180460
+2012,Central Ostrobothnia,0.0,0.0,50927
+2012,Kainuu,0.0,0.0,56545
+2012,Kanta-Haeme,0.0,0.0,127062
+2012,Kymenlaakso,0.0,0.0,122352
+2012,Lapland,0.0,0.0,135008
+2012,North Karelia,0.0,0.0,122252
+2012,North Ostrobothnia,0.0,0.0,260017
+2012,North Savo,0.0,0.0,172596
+2012,Ostrobothnia,0.0,0.0,131693
+2012,Paeijaet-Haeme,0.0,0.0,137378
+2012,Pirkanmaa,0.0,0.0,320092
+2012,Satakunta,0.0,0.0,176023
+2012,South Karelia,0.0,0.0,93882
+2012,South Ostrobothnia,0.0,0.0,164613
+2012,South Savo,0.0,0.0,102880
+2012,Southwest Finland,0.0,0.0,319381
+2012,Uusimaa,0.0,0.0,886015
+2013,Aaland,0.0,0.0,26134
+2013,Central Finland,0.0,0.0,184260
+2013,Central Ostrobothnia,0.0,0.0,52366
+2013,Kainuu,0.0,0.0,57719
+2013,Kanta-Haeme,0.0,0.0,130131
+2013,Kymenlaakso,0.0,0.0,124767
+2013,Lapland,0.0,0.0,138822
+2013,North Karelia,0.0,0.0,124819
+2013,North Ostrobothnia,0.0,0.0,267335
+2013,North Savo,0.0,0.0,177263
+2013,Ostrobothnia,0.0,0.0,135132
+2013,Paeijaet-Haeme,0.0,0.0,140669
+2013,Pirkanmaa,0.0,0.0,328022
+2013,Satakunta,0.0,0.0,180452
+2013,South Karelia,0.0,0.0,96071
+2013,South Ostrobothnia,0.0,0.0,169230
+2013,South Savo,0.0,0.0,104720
+2013,Southwest Finland,0.0,0.0,325754
+2013,Uusimaa,0.0,0.0,907841
+2014,Aaland,0.0,0.0,26987
+2014,Central Finland,0.0,0.0,187832
+2014,Central Ostrobothnia,0.0,0.0,53480
+2014,Kainuu,0.0,0.0,58596
+2014,Kanta-Haeme,0.0,0.0,132281
+2014,Kymenlaakso,0.0,0.0,126870
+2014,Lapland,0.0,0.0,142055
+2014,North Karelia,0.0,0.0,127674
+2014,North Ostrobothnia,0.0,0.0,275471
+2014,North Savo,0.0,0.0,181679
+2014,Ostrobothnia,0.0,0.0,138392
+2014,Paeijaet-Haeme,0.0,0.0,142841
+2014,Pirkanmaa,0.0,0.0,335796
+2014,Satakunta,0.0,0.0,184179
+2014,South Karelia,0.0,0.0,97762
+2014,South Ostrobothnia,0.0,0.0,173449
+2014,South Savo,0.0,0.0,106694
+2014,Southwest Finland,0.0,0.0,331425
+2014,Uusimaa,0.0,0.0,924930
+2015,Aaland,0.0,0.0,27701
+2015,Central Finland,0.0,0.0,193006
+2015,Central Ostrobothnia,0.0,0.0,54999
+2015,Kainuu,0.0,0.0,59793
+2015,Kanta-Haeme,0.0,0.0,135291
+2015,Kymenlaakso,0.0,0.0,129194
+2015,Lapland,0.0,0.0,145257
+2015,North Karelia,0.0,0.0,130141
+2015,North Ostrobothnia,0.0,0.0,283560
+2015,North Savo,0.0,0.0,185775
+2015,Ostrobothnia,0.0,0.0,141644
+2015,Paeijaet-Haeme,0.0,0.0,146099
+2015,Pirkanmaa,0.0,0.0,344338
+2015,Satakunta,0.0,0.0,187846
+2015,South Karelia,0.0,0.0,99800
+2015,South Ostrobothnia,0.0,0.0,177340
+2015,South Savo,0.0,0.0,108750
+2015,Southwest Finland,0.0,0.0,338365
+2015,Uusimaa,0.0,0.0,946660
+2016,Aaland,213118.0,3464290.0,28490
+2016,Central Finland,0.0,0.0,198726
+2016,Central Ostrobothnia,0.0,0.0,56522
+2016,Kainuu,0.0,0.0,61269
+2016,Kanta-Haeme,0.0,0.0,139057
+2016,Kymenlaakso,12319480.0,0.0,132023
+2016,Lapland,4594722.0,756.0,149257
+2016,North Karelia,0.0,0.0,133571
+2016,North Ostrobothnia,8387460.0,0.0,292716
+2016,North Savo,0.0,0.0,191246
+2016,Ostrobothnia,2815203.0,184191.0,145450
+2016,Paeijaet-Haeme,0.0,0.0,150235
+2016,Pirkanmaa,0.0,0.0,355168
+2016,Satakunta,8729854.0,403.0,192877
+2016,South Karelia,616167.0,16213.0,101667
+2016,South Ostrobothnia,0.0,0.0,182725
+2016,South Savo,0.0,0.0,110966
+2016,Southwest Finland,10140308.0,2875211.0,347910
+2016,Uusimaa,40378664.0,12321495.0,973321
+2017,Aaland,212716.0,3469637.0,29209
+2017,Central Finland,0.0,0.0,203376
+2017,Central Ostrobothnia,0.0,0.0,57796
+2017,Kainuu,0.0,0.0,62469
+2017,Kanta-Haeme,0.0,0.0,141886
+2017,Kymenlaakso,13549049.0,14645.0,134651
+2017,Lapland,4543207.0,294.0,152179
+2017,North Karelia,0.0,0.0,135689
+2017,North Ostrobothnia,8331548.0,2.0,301402
+2017,North Savo,0.0,0.0,195813
+2017,Ostrobothnia,2554452.0,200086.0,149062
+2017,Paeijaet-Haeme,0.0,0.0,154088
+2017,Pirkanmaa,0.0,0.0,365561
+2017,Satakunta,8965361.0,0.0,198006
+2017,South Karelia,677250.0,16968.0,103799
+2017,South Ostrobothnia,0.0,0.0,187021
+2017,South Savo,0.0,0.0,112698
+2017,Southwest Finland,10323087.0,2838417.0,357667
+2017,Uusimaa,42081512.0,12670466.0,999818
+2018,Aaland,199985.0,3477970.0,28141
+2018,Central Finland,0.0,0.0,208036
+2018,Central Ostrobothnia,0.0,0.0,59210
+2018,Kainuu,0.0,0.0,63789
+2018,Kanta-Haeme,0.0,0.0,144976
+2018,Kymenlaakso,15095579.0,1106.0,137291
+2018,Lapland,4898932.0,587.0,156335
+2018,North Karelia,0.0,0.0,138021
+2018,North Ostrobothnia,8876418.0,693.0,309625
+2018,North Savo,0.0,0.0,199078
+2018,Ostrobothnia,3102141.0,211410.0,152903
+2018,Paeijaet-Haeme,0.0,0.0,157075
+2018,Pirkanmaa,0.0,0.0,376017
+2018,Satakunta,9537108.0,693.0,202226
+2018,South Karelia,832241.0,16396.0,105376
+2018,South Ostrobothnia,0.0,0.0,191284
+2018,South Savo,0.0,0.0,114463
+2018,Southwest Finland,11049418.0,2759296.0,366587
+2018,Uusimaa,43049131.0,12555006.0,1023758
+2019,Aaland,247680.0,3373823.0,29912
+2019,Central Finland,0.0,0.0,212112
+2019,Central Ostrobothnia,0.0,0.0,60381
+2019,Kainuu,0.0,0.0,65051
+2019,Kanta-Haeme,0.0,0.0,148236
+2019,Kymenlaakso,14879439.0,1872.0,139730
+2019,Lapland,4677539.0,1.0,160206
+2019,North Karelia,0.0,0.0,140916
+2019,North Ostrobothnia,7867060.0,2313.0,320170
+2019,North Savo,0.0,0.0,203825
+2019,Ostrobothnia,3288233.0,209700.0,156883
+2019,Paeijaet-Haeme,0.0,0.0,160647
+2019,Pirkanmaa,0.0,0.0,385623
+2019,Satakunta,9142440.0,939.0,206498
+2019,South Karelia,627925.0,20085.0,106915
+2019,South Ostrobothnia,0.0,0.0,196840
+2019,South Savo,0.0,0.0,116313
+2019,Southwest Finland,10847688.0,2754049.0,375258
+2019,Uusimaa,43330333.0,12772326.0,1051098
+2020,Aaland,220327.0,962752.0,30519
+2020,Central Finland,0.0,0.0,215871
+2020,Central Ostrobothnia,0.0,0.0,61591
+2020,Kainuu,0.0,0.0,66041
+2020,Kanta-Haeme,0.0,0.0,150900
+2020,Kymenlaakso,14155849.0,0.0,141155
+2020,Lapland,4543331.0,2.0,162993
+2020,North Karelia,0.0,0.0,143133
+2020,North Ostrobothnia,7039317.0,0.0,328577
+2020,North Savo,0.0,0.0,208393
+2020,Ostrobothnia,3129659.0,57640.0,160135
+2020,Paeijaet-Haeme,0.0,0.0,163132
+2020,Pirkanmaa,0.0,0.0,393121
+2020,Satakunta,8003507.0,0.0,209551
+2020,South Karelia,794766.0,0.0,107933
+2020,South Ostrobothnia,0.0,0.0,200919
+2020,South Savo,0.0,0.0,117724
+2020,Southwest Finland,11164297.0,964637.0,381098
+2020,Uusimaa,40402050.0,4704296.0,1070421
+2021,Aaland,200349.0,1208744.0,30934
+2021,Central Finland,0.0,0.0,217836
+2021,Central Ostrobothnia,0.0,0.0,62065
+2021,Kainuu,0.0,0.0,66371
+2021,Kanta-Haeme,0.0,0.0,152046
+2021,Kymenlaakso,14104237.0,0.0,142176
+2021,Lapland,4970942.0,2.0,164723
+2021,North Karelia,0.0,0.0,143688
+2021,North Ostrobothnia,7308688.0,1.0,333455
+2021,North Savo,0.0,0.0,209042
+2021,Ostrobothnia,3417285.0,107271.0,161657
+2021,Paeijaet-Haeme,0.0,0.0,164052
+2021,Pirkanmaa,0.0,0.0,399913
+2021,Satakunta,8741095.0,0.0,211245
+2021,South Karelia,748713.0,0.0,107957
+2021,South Ostrobothnia,0.0,0.0,201859
+2021,South Savo,0.0,0.0,118258
+2021,Southwest Finland,9417174.0,1166615.0,384827
+2021,Uusimaa,38851866.0,3728879.0,1090299
+2022,Aaland,197432.0,2002831.0,31173
+2022,Central Finland,0.0,0.0,218799
+2022,Central Ostrobothnia,0.0,0.0,62476
+2022,Kainuu,0.0,0.0,66313
+2022,Kanta-Haeme,0.0,0.0,152921
+2022,Kymenlaakso,15175269.0,9127.0,142508
+2022,Lapland,4164505.0,2415.0,165950
+2022,North Karelia,0.0,0.0,143805
+2022,North Ostrobothnia,7878711.0,0.0,335221
+2022,North Savo,0.0,0.0,209591
+2022,Ostrobothnia,3131708.0,266809.0,162869
+2022,Paeijaet-Haeme,0.0,0.0,164386
+2022,Pirkanmaa,0.0,0.0,405224
+2022,Satakunta,8964377.0,0.0,212839
+2022,South Karelia,7698.0,0.0,107466
+2022,South Ostrobothnia,0.0,0.0,204161
+2022,South Savo,0.0,0.0,118480
+2022,Southwest Finland,8344558.0,2254411.0,388713
+2022,Uusimaa,43165398.0,8232521.0,1107095
+2023,Aaland,178561.0,1834453.0,31363
+2023,Central Finland,0.0,0.0,220794
+2023,Central Ostrobothnia,0.0,0.0,62906
+2023,Kainuu,0.0,0.0,66713
+2023,Kanta-Haeme,0.0,0.0,153842
+2023,Kymenlaakso,13802125.0,13512.0,142649
+2023,Lapland,3837146.0,885.0,168665
+2023,North Karelia,0.0,0.0,144531
+2023,North Ostrobothnia,7353403.0,0.0,338307
+2023,North Savo,0.0,0.0,211753
+2023,Ostrobothnia,2710613.0,277212.0,165055
+2023,Paeijaet-Haeme,0.0,0.0,165411
+2023,Pirkanmaa,0.0,0.0,410602
+2023,Satakunta,7471388.0,0.0,215317
+2023,South Karelia,0.0,0.0,108429
+2023,South Ostrobothnia,0.0,0.0,207152
+2023,South Savo,0.0,0.0,119082
+2023,Southwest Finland,6866580.0,2139916.0,393324
+2023,Uusimaa,42041037.0,9209496.0,1126406

@@ -35,3 +35,5 @@ def load_data():
     # Return all dfs
     list_of_dfs = [fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, combined_cities_df, combined_regions_df, tree_df]
     return list_of_dfs
+
+
