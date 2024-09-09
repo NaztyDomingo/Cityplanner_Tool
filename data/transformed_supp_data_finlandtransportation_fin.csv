@@ -1,4 +1,99 @@
-year,region,tons_of_ship_cargo,num_of_ship_passengers,num_of_registered_automobiles
+Year,Region,Tons Of Ship Cargo,Num Of Ship Passengers,Num of Registered Automobiles
+2011,Aaland,0.0,0.0,24352
+2011,Central Finland,0.0,0.0,175588
+2011,Central Ostrobothnia,0.0,0.0,49272
+2011,Kainuu,0.0,0.0,55192
+2011,Kanta-Haeme,0.0,0.0,123623
+2011,Kymenlaakso,0.0,0.0,120013
+2011,Lapland,0.0,0.0,130786
+2011,North Karelia,0.0,0.0,118794
+2011,North Ostrobothnia,0.0,0.0,251246
+2011,North Savo,0.0,0.0,167257
+2011,Ostrobothnia,0.0,0.0,127870
+2011,Paeijaet-Haeme,0.0,0.0,134153
+2011,Pirkanmaa,0.0,0.0,311739
+2011,Satakunta,0.0,0.0,171262
+2011,South Karelia,0.0,0.0,91392
+2011,South Ostrobothnia,0.0,0.0,159524
+2011,South Savo,0.0,0.0,100264
+2011,Southwest Finland,0.0,0.0,311496
+2011,Uusimaa,0.0,0.0,863068
+2012,Aaland,0.0,0.0,25235
+2012,Central Finland,0.0,0.0,180460
+2012,Central Ostrobothnia,0.0,0.0,50927
+2012,Kainuu,0.0,0.0,56545
+2012,Kanta-Haeme,0.0,0.0,127062
+2012,Kymenlaakso,0.0,0.0,122352
+2012,Lapland,0.0,0.0,135008
+2012,North Karelia,0.0,0.0,122252
+2012,North Ostrobothnia,0.0,0.0,260017
+2012,North Savo,0.0,0.0,172596
+2012,Ostrobothnia,0.0,0.0,131693
+2012,Paeijaet-Haeme,0.0,0.0,137378
+2012,Pirkanmaa,0.0,0.0,320092
+2012,Satakunta,0.0,0.0,176023
+2012,South Karelia,0.0,0.0,93882
+2012,South Ostrobothnia,0.0,0.0,164613
+2012,South Savo,0.0,0.0,102880
+2012,Southwest Finland,0.0,0.0,319381
+2012,Uusimaa,0.0,0.0,886015
+2013,Aaland,0.0,0.0,26134
+2013,Central Finland,0.0,0.0,184260
+2013,Central Ostrobothnia,0.0,0.0,52366
+2013,Kainuu,0.0,0.0,57719
+2013,Kanta-Haeme,0.0,0.0,130131
+2013,Kymenlaakso,0.0,0.0,124767
+2013,Lapland,0.0,0.0,138822
+2013,North Karelia,0.0,0.0,124819
+2013,North Ostrobothnia,0.0,0.0,267335
+2013,North Savo,0.0,0.0,177263
+2013,Ostrobothnia,0.0,0.0,135132
+2013,Paeijaet-Haeme,0.0,0.0,140669
+2013,Pirkanmaa,0.0,0.0,328022
+2013,Satakunta,0.0,0.0,180452
+2013,South Karelia,0.0,0.0,96071
+2013,South Ostrobothnia,0.0,0.0,169230
+2013,South Savo,0.0,0.0,104720
+2013,Southwest Finland,0.0,0.0,325754
+2013,Uusimaa,0.0,0.0,907841
+2014,Aaland,0.0,0.0,26987
+2014,Central Finland,0.0,0.0,187832
+2014,Central Ostrobothnia,0.0,0.0,53480
+2014,Kainuu,0.0,0.0,58596
+2014,Kanta-Haeme,0.0,0.0,132281
+2014,Kymenlaakso,0.0,0.0,126870
+2014,Lapland,0.0,0.0,142055
+2014,North Karelia,0.0,0.0,127674
+2014,North Ostrobothnia,0.0,0.0,275471
+2014,North Savo,0.0,0.0,181679
+2014,Ostrobothnia,0.0,0.0,138392
+2014,Paeijaet-Haeme,0.0,0.0,142841
+2014,Pirkanmaa,0.0,0.0,335796
+2014,Satakunta,0.0,0.0,184179
+2014,South Karelia,0.0,0.0,97762
+2014,South Ostrobothnia,0.0,0.0,173449
+2014,South Savo,0.0,0.0,106694
+2014,Southwest Finland,0.0,0.0,331425
+2014,Uusimaa,0.0,0.0,924930
+2015,Aaland,0.0,0.0,27701
+2015,Central Finland,0.0,0.0,193006
+2015,Central Ostrobothnia,0.0,0.0,54999
+2015,Kainuu,0.0,0.0,59793
+2015,Kanta-Haeme,0.0,0.0,135291
+2015,Kymenlaakso,0.0,0.0,129194
+2015,Lapland,0.0,0.0,145257
+2015,North Karelia,0.0,0.0,130141
+2015,North Ostrobothnia,0.0,0.0,283560
+2015,North Savo,0.0,0.0,185775
+2015,Ostrobothnia,0.0,0.0,141644
+2015,Paeijaet-Haeme,0.0,0.0,146099
+2015,Pirkanmaa,0.0,0.0,344338
+2015,Satakunta,0.0,0.0,187846
+2015,South Karelia,0.0,0.0,99800
+2015,South Ostrobothnia,0.0,0.0,177340
+2015,South Savo,0.0,0.0,108750
+2015,Southwest Finland,0.0,0.0,338365
+2015,Uusimaa,0.0,0.0,946660
 2016,Aaland,213118.0,3464290.0,28490
 2016,Central Finland,0.0,0.0,198726
 2016,Central Ostrobothnia,0.0,0.0,56522
