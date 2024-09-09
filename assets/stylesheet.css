@@ -1,0 +1,54 @@
+h1 {
+    text-align: center;
+    font-family : 'Open Sans', 'verdana', 'arial', 'sans-serif';
+}
+
+div {
+    display: flex;
+    justify-content : center;  
+    align-items : center;      
+    margin : 20px;
+    font-family: 'Open Sans', 'verdana', 'arial', 'sans-serif';                
+}
+
+.search-bar {
+    width: 400px;
+    height: 50px;
+    font-size: 18px;
+}
+
+button {
+    height: 50px;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+
+.graph-left {
+    display: inline-block;
+    width: 68%;
+    height: 500px;
+}
+
+.graph-right {
+    display: inline-block;
+    width: 32%;
+    height: 500px;
+}
+
+.bottom-info-table-cell {
+    white-space: normal;
+    height: auto;
+    text-align: left;
+    font-family: 'Open Sans', verdana, arial, sans-serif;
+    font-size: 14px;
+}
+
+.bottom-info-table-header {
+    background-color: #d3dcd5;
+    font-weight: bold;
+}
+
+.bottom-info-table-conditional {
+    background-color: rgb(248, 248, 248);
+}
