@@ -3,83 +3,26 @@ import plotly.express as px
 import plotly.graph_objects as go
 import dash
 from dash import Dash, dcc, html, Input, Output, State, callback_context, dash_table
-import visualization_data as vd
 import dataframe_helper as dh
 import database_puller as dp
 
 def main() -> None:
+     # Load and unpack dfs from database
+    dfs = dp.pull_all()
+    fin_cities_df, fin_regions_df, agriculture_fin_df, air_passenger_and_cargo_transport_fin_df, supplementary_data_fin_df, energy_consumption_and_population_fin_df, energy_agric_fin_df, transportation_fin_df, swe_cities_df, swe_regions_df, avg_co2_consumption_df, final_tree_info_df, partial_tree_info_df = dfs
+
+
     # Initialize the Dash app
     app = dash.Dash(__name__)
     app.title = "Dash Data Visualization"
 
-    # Load and unpack dfs from database
-    dfs = dp.pull_all()
-    # dfs = vd.load_data()
-    # print(len(dfs))
-    fin_cities_df, fin_regions_df, agriculture_fin_df, air_passenger_and_cargo_transport_fin_df, supplementary_data_fin_df, energy_consumption_and_population_fin_df, energy_agric_fin_df, transportation_fin_df, swe_cities_df, swe_regions_df, avg_co2_consumption_df, final_tree_info_df, partial_tree_info_df = dfs
-
-    # Modify dfs
+    app_layout(app)
+    # Modify dfs - TODO: No modifying in app.py
     final_tree_info_df.drop(columns=['Maintenance'], inplace=True)
     final_tree_info_df.rename(columns={'Average_heigh_range_m': 'Average Height (m)'})
 
     combine_list = [fin_cities_df, swe_cities_df]
     combined_cities_df = pd.concat(combine_list)
-
-    # Define the layout and style of the app
-    app.layout = html.Div([
-
-        html.H1(
-            "Cityplanner Tool"),
-        
-        # Input and Button
-        html.Div(
-            children=[
-                dcc.Input(
-                    id='variable-input',
-                    type='text',
-                    placeholder='Enter a city',
-                    className='search-bar'
-                ),
-                html.Button(
-                    'Submit',
-                    id='submit-button',
-                    n_clicks=0
-                )
-            ]
-        ),
-        
-        # Container for the two graphs side by side
-        html.Div([
-            # Line chart for emissions over years
-            dcc.Graph(id='line-or-bar-chart', className="graph-left"),
-            
-            # Pie chart for emissions by source
-            dcc.Graph(id='pie-chart', className='graph-right'),
-
-        # Tree data table
-        dash_table.DataTable(
-            id='data-table',
-            columns=[{"name": i, "id": i} for i in final_tree_info_df.columns],
-            data=final_tree_info_df.to_dict('records'),
-            style_cell={
-                'whiteSpace': 'normal',
-                'height': 'auto',
-                'textAlign': 'left',
-                'fontFamily': 'Open Sans, verdana, arial, sans-serif',
-                'fontSize': '14px'
-            },
-            style_header={
-                'backgroundColor': '#d3dcd5',
-                'fontWeight': 'bold'
-            },
-            style_data_conditional=[
-                {
-                    'if': {'row_index': 'odd'},
-                    'backgroundColor': 'rgb(248, 248, 248)'
-                }],
-            page_size=10)
-        ]),
-    ])
 
     # Define the callback for the input field and button
     @app.callback(
@@ -220,7 +163,63 @@ def main() -> None:
     
     app.run_server(debug=True)
 
-# Run app
+def app_layout(app: dash.Dash) -> None:
+    app.layout = init_app()
+
+def init_app() -> html.Div:
+    init_layout = []
+
+    init_layout = html.Div([
+        html.H1("Cityplanner Tool"),
+        html.Div(children=[
+                dcc.Input(
+                    id='variable-input',
+                    type='text',
+                    placeholder='Enter a city',
+                    className='search-bar'
+                ),
+                html.Button(
+                    'Submit',
+                    id='submit-button',
+                    n_clicks=0
+                )
+            ]
+        ),
+        # Container for the two graphs side by side
+        html.Div([
+            # Line chart for emissions over years
+            dcc.Graph(id='line-or-bar-chart'),
+            
+            # Pie chart for emissions by source
+            dcc.Graph(id='pie-chart'),
+
+        # Tree data table
+        dash_table.DataTable(
+            id='data-table',
+            columns=[{"name": i, "id": i} for i in final_tree_info_df.columns],
+            data=final_tree_info_df.to_dict('records'),
+            style_cell={
+                'whiteSpace': 'normal',
+                'height': 'auto',
+                'textAlign': 'left',
+                'fontFamily': 'Open Sans, verdana, arial, sans-serif',
+                'fontSize': '14px'
+            },
+            style_header={
+                'backgroundColor': '#d3dcd5',
+                'fontWeight': 'bold'
+            },
+            style_data_conditional=[
+                {
+                    'if': {'row_index': 'odd'},
+                    'backgroundColor': 'rgb(248, 248, 248)'
+                }],
+            page_size=10)
+        ])
+    ])
+    return init_layout
+
+
 if __name__ == '__main__':
     main()
 
