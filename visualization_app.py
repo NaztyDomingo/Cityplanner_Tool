@@ -5,17 +5,24 @@ import dash
 from dash import Dash, dcc, html, Input, Output, State, callback_context, dash_table
 import visualization_data as vd
 import dataframe_helper as dh
+import database_puller as dp
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
 app.title = "Dash Data Visualization"
 
-# Load and unpack dfs
-dfs = vd.load_data()
-fin_cities_df, fin_regions_df, swe_cities_df, swe_regions_df, combined_cities_df, combined_regions_df, tree_df = dfs
+# Load and unpack dfs from database
+dfs = dp.pull_all()
+# dfs = vd.load_data()
+# print(len(dfs))
+fin_cities_df, fin_regions_df, agriculture_fin_df, air_passenger_and_cargo_transport_fin_df, supplementary_data_fin_df, energy_consumption_and_population_fin_df, energy_agric_fin_df, transportation_fin_df, swe_cities_df, swe_regions_df, avg_co2_consumption_df, final_tree_info_df, partial_tree_info_df = dfs
 
-# modify tree df to fit table better
-tree_df.drop(columns=['Maintenance'], inplace=True)
+# Modify dfs
+final_tree_info_df.drop(columns=['Maintenance'], inplace=True)
+final_tree_info_df.rename(columns={'Average_heigh_range_m': 'Average Height (m)'})
+
+combine_list = [fin_cities_df, swe_cities_df]
+combined_cities_df = pd.concat(combine_list)
 
 # Define the layout and style of the app
 app.layout = html.Div([
@@ -73,8 +80,8 @@ app.layout = html.Div([
     # Tree data table
     dash_table.DataTable(
         id='data-table',
-        columns=[{"name": i, "id": i} for i in tree_df.columns],
-        data=tree_df.to_dict('records'),
+        columns=[{"name": i, "id": i} for i in final_tree_info_df.columns],
+        data=final_tree_info_df.to_dict('records'),
         style_cell={
             'whiteSpace': 'normal',
             'height': 'auto',
