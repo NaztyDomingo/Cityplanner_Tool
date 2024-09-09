@@ -26,11 +26,11 @@ def main() -> None:
 
     # Define the callback for the input field and button
     @app.callback(
-        [Output('line-or-bar-chart', 'figure'), Output('pie-chart', 'figure')],
+        [Output('line-or-bar-chart', 'figure'), 
+         Output('pie-chart', 'figure')],
         [Input('submit-button', 'n_clicks')],
         [State('variable-input', 'value')]
     )
-
     def update_graph(n_clicks, input_value):
         
         emission_sources = [
