@@ -136,7 +136,7 @@ def _make_custom_csv_file() -> None:
 
     for file in list_with_files:
         filepath_of_file = os.path.join(filepath, file)
-        df = pd.read_csv(filepath_of_file)
+        df = pd.read_csv(filepath_of_file, header=1)
         first_column = df.columns[0]
         region, column_name = first_column.split(split_word)
         column_name = split_word + column_name
