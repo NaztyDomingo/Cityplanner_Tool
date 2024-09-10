@@ -86,7 +86,6 @@ def _split_dataframe_and_transpose(df: pd.DataFrame, chunk_size: int) -> pd.Data
             
     df_combined.reset_index(inplace=True)    
     df_combined = df_combined.transpose()
-
     return df_combined
 
 def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
@@ -100,9 +99,7 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     df_cleaned.drop(columns=['2006','2007','2008','2009','2011','2012','2013','2014'], axis=1, inplace=True)
     region_column = df_cleaned['Region'].copy()
     df_cleaned.drop(columns=['Region'], axis=1, inplace=True)
-    
     df_combined = _split_dataframe_and_transpose(df_cleaned, 14)
-    
     df_combined.to_csv(filepath)
 
     # Flipping rows and columns and adding region back
