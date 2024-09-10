@@ -1,0 +1,32 @@
+Text to read:
+
+Ladies and Gentlemen,​
+
+Imagine a world where city planning is not only about developing infrastructure but also about creating a sustainable future. ​
+
+Introducing the City Planner Tool – an innovative app designed to revolutionize urban planning by integrating environmental responsibility into the core of city development.​
+
+The City Planner Tool provides city planners with accurate emission data for their cities. By analyzing this data, our tool calculates the number and types of trees needed to neutralize these emissions, ensuring a greener, cleaner urban environment.
+
+Data-Driven Insights: ​
+
+Our app gathers comprehensive emission data, giving planners a clear picture of the environmental impact. ​
+
+Currently, we have detailed data for Finnish and Swedish cities, but our goal is to expand this coverage to include all of Scandinavia, providing a regional approach to sustainable urban development.
+
+
+Customized Green Solutions: ​
+
+Based on the emission data, the tool suggests a variety of trees that should be planted to offset the carbon footprint effectively. Whether it's a bustling metropolis or a serene town, our recommendations are tailored to meet the specific needs of each city.
+
+Sustainable Urban Planning: ​
+
+By integrating these green solutions into city planning, we can reduce pollution, improve air quality, and create healthier living spaces for future generations.
+
+The City Planner Tool is more than just an app; it’s a commitment to sustainable development. It empowers city planners with the knowledge and resources needed to make environmentally responsible decisions, ensuring that every new project contributes positively to our planet.​
+
+Let’s take the first step towards a greener future. Let’s make our cities not only smarter but also more sustainable with the City Planner Tool.​
+
+​
+
+Thank you
