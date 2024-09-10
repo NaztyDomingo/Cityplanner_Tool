@@ -114,7 +114,6 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
 
     df.to_csv(filepath, index=False)
 
-
 def _remove_nan_from_csv_file() -> None:
     filename = 'finland_regions_emissions.csv'
     folder = 'transformed_finland_data'
@@ -136,7 +135,7 @@ def _make_custom_csv_file() -> None:
 
     for file in list_with_files:
         filepath_of_file = os.path.join(filepath, file)
-        df = pd.read_csv(filepath_of_file, header=1)
+        df = pd.read_csv(filepath_of_file, header = 1)
         first_column = df.columns[0]
         region, column_name = first_column.split(split_word)
         column_name = split_word + column_name
