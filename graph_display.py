@@ -41,7 +41,7 @@ def bar(df, fig):
                 barmode='stack',
                 xaxis_title='Region',
                 yaxis_title='Total Emissions in 2022 (kt CO2e)',
-                title='Total Emissions by Region and Source in Finland (2022)',
+                title='Total Emissions by Region and Source in <country> (2022)',
                 legend_title='Emission Sources'
             )
     
@@ -54,7 +54,7 @@ def pie(df, fig):
                 values='Total Emissions 2022',
                 names='Hinku calculation without emission credits',
                 hole=.5,
-                title='Total Emissions by Source in Finland (2022)',
+                title='Total Emissions by Source in <country> (2022)',
                 color='Hinku calculation without emission credits',
                 color_discrete_map=colors_pie()
             )
@@ -71,6 +71,7 @@ def line(df, input_value, fig):
                     df,
                     x='Year',
                     y='Total Emissions',
+                    markers='o',
                     title=f'Total Yearly Emissions for {input_value.capitalize()}',
                     category_orders={'Year': sorted(df['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
                 )

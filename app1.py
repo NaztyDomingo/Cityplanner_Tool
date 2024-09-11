@@ -18,8 +18,8 @@ def main():
     dfs = dp.pull_all()
     # dfs = vd.load_data()
     # print(len(dfs))
-    fin_cities_df, fin_regions_df, agriculture_fin_df, air_passenger_and_cargo_transport_fin_df, supplementary_data_fin_df, energy_consumption_and_population_fin_df, energy_agric_fin_df, transportation_fin_df, swe_cities_df, swe_regions_df, avg_co2_consumption_df, final_tree_info_df, partial_tree_info_df = dfs
-
+    fin_cities_df, fin_regions_df, fin_city_predictions, fin_region_predictions, swe_city_predictions, agriculture_fin_df, air_passenger_and_cargo_transport_fin_df, supplementary_data_fin_df, energy_consumption_and_population_fin_df, energy_agric_fin_df, transportation_fin_df, swe_cities_df, swe_regions_df, avg_co2_consumption_df, final_tree_info_df, partial_tree_info_df, = dfs
+    
     # Modify dfs
     final_tree_info_df.drop(columns=['Maintenance'], inplace=True)
     final_tree_info_df.rename(columns={'Average_heigh_range_m': 'Average Height (m)'})
@@ -34,14 +34,13 @@ def main():
     # Define the callback for the input field and button
     @app.callback(
         [Output('line-or-bar-chart', 'figure'), Output('pie-chart', 'figure'),
-         Output('recommendations-bar-chart', 'figure')
+         Output('recommendations-bar-chart', 'figure')],
          #, Output('line-or-bar-chart', 'style'), Output('pie-chart', 'style')
-         ],
-        [Input('submit-button', 'n_clicks')],
+        [Input('country-dropdown', 'value'),Input('submit-button', 'n_clicks')],
         [State('variable-input', 'value')]
     )
 
-    def update_graph(n_clicks, input_value):
+    def update_graph(country_selection, n_clicks, input_value):
         
         emission_sources = [
                     'Waste And Sewage', 'Machinery', 'Electricity And District Heating',
@@ -49,12 +48,15 @@ def main():
                     ]
 
         # Default view for the page = User has not entered search parameters
-        if n_clicks == 0 or not input_value:
-
-            # Filter the DataFrame to only include relevant emission sources
-            filtered_df = fin_regions_df[fin_regions_df['Year'] == 2022][['Region'] + emission_sources]
+        if not input_value:
+            print(input_value)
+            # Filter the DataFrame to only include relevant emission sources. Country determined by dropdown
+            if 'Finland' in country_selection:
+                filtered_df = fin_regions_df[fin_regions_df['Year'] == 2022][['Region'] + emission_sources]
+            else:
+                filtered_df = swe_regions_df[swe_regions_df['Year'] == 2022][['Region'] + emission_sources]
             
-            # For default stacked bar chart for Finland
+            # For default stacked bar chart for 
             # Pivot the DataFrame to have Regions as index and emission sources as columns
             pivot_df = filtered_df.set_index('Region')
 
@@ -77,8 +79,8 @@ def main():
         
 
         # User has entered a search parameter
-        if n_clicks > 0 and input_value:
-
+        if input_value:
+            print(input_value)
             inputted_styles1 = inputted1_graph_style
             inputted_styles2 = inputted2_graph_style
 
@@ -124,7 +126,6 @@ def main():
 
             # Filter data based on user input for tree recommendations chart
             filtered_rec_data = tc.calc_trees(combined_cities_df, final_tree_info_df, input_value)
-            print(filtered_rec_data)
             
             # Tree recommendations
             if not filtered_rec_data.empty:
@@ -140,6 +141,37 @@ def main():
             
         # Default return when no input is provided
         return {}, {}, {} #, {}, {} # empty returns for the styling elements
+    
+    # @app.callback(
+    #     Output('country-dropdown', 'style'),
+    #     [Input('submit-button', 'n_clicks')]
+    # )
+    # def toggle_dropdown(n_clicks):
+    #     #hide the dropdown when entering a city (if n_clicks is greater than 0)
+    #     if n_clicks > 0:
+    #         return {'display': 'none'}
+    #     return {'display': 'block'} 
+
+    #callback used for dropdown visibility
+    @app.callback(
+        Output('country-dropdown', 'style'),
+        [Input('submit-button', 'n_clicks')],
+        [State('variable-input', 'value')]
+    )
+
+    #func used for dropdown visibility
+    def toggle_dropdown(n_clicks, input_value):
+        
+        #if no input, show
+        if not input_value:
+            return {'display': 'block'}
+        
+        # hide if the button has been clicked and input is provided
+        if n_clicks > 0:
+            return {'display': 'none'}
+    
+        # default: show
+        return {'display': 'block'}
     
     app.run_server(debug=True)
     
@@ -173,18 +205,30 @@ def init_app(df) -> html.Div:
             )
         ]
     ),
+
+    # Checklist for country selection
+    html.Div(
+        dcc.Dropdown(
+            id='country-dropdown',
+            options=['Finland', 'Sweden'],
+            value='Finland',
+            clearable=False,
+        ),
+        style={'textAlign': 'center', 'margin': '20px', 'width': '200px', 'display': 'block'}
+    ),
     
-    # Container for the two graphs side by side
+    # Main (stacked)bar chart
     html.Div([
         # Line chart for emissions over years
         dcc.Graph(id='line-or-bar-chart', style=default1_graph_style),
         
-        # Pie chart for emissions by source
-        dcc.Graph(id='pie-chart', style=default2_graph_style),
 
-    # Tree recommendations bar chart
+    # Container for the two graphs side by side
     html.Div([
-        dcc.Graph(id='recommendations-bar-chart', style=style_rec1)],
+        # Pie chart for emissions by source
+        dcc.Graph(id='recommendations-bar-chart', style=style_rec1),
+        dcc.Graph(id='pie-chart', style=default2_graph_style),
+        ],
         style=style_rec_div),
 
     # Tree data table
@@ -230,10 +274,10 @@ button_graph_style={
                     #'background-color': '#d3dcd5'
                 }
 
-style_rec1={'display': 'block', 'width': '100%', 'height': '500px'}
+style_rec1={'display': 'inline-block', 'width': '68%', 'height': '500px'}
 style_rec_div={'marginTop': '30px'}
 
-default1_graph_style={'display': 'inline-block', 'width': '68%', 'height': '500px'}
+default1_graph_style={'display': 'inline-block', 'width': '100%', 'height': '750px'}
 default2_graph_style={'display': 'inline-block', 'width': '32%', 'height': '500px'}
 
 inputted1_graph_style={'display': 'inline-block', 'width': '40%', 'height': '500px'}
