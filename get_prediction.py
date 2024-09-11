@@ -9,11 +9,11 @@ from statsmodels.tsa.stattools import adfuller
 
 def main() -> None:
     #output_predictions('sweden_regions_emissions.csv', 'sweden', 'region') # get some problems due to null values and 'total emissions' = object
-    output_predictions('finland_regions_emissions.csv', 'finland', 'region')
-    output_predictions('finland_cities_emissions.csv', 'finland', 'city' )
-    output_predictions('sweden_cities_emissions.csv', 'sweden', 'city' )
+    #output_predictions('finland_regions_emissions.csv', 'finland', 'region')
+    #output_predictions('finland_cities_emissions.csv', 'finland', 'city' )
+    #output_predictions('sweden_cities_emissions.csv', 'sweden', 'city' )
 
-    #plot_predictions('sweden_regions_emissions.csv', 'sweden', 'region' )
+    plot_predictions('finland_cities_emissions.csv', 'finland', 'city' )
    
     print('All predictions converted to csv...')
 
@@ -105,7 +105,7 @@ def plot_predictions(input_file: str, country: str, type: str):
                 linestyle='--', label='2022 (Last Known Data Point)') #vertical line to mark split between historical/forecast data
     plt.xlabel('Year')
     plt.ylabel('Emissions')
-    plt.title('Emissions Forecast (2023-2025) for All Regions')
+    plt.title(f'{type.capitalize()}-wide Emissions Forecast (2023-2025) for {country.capitalize()}')
     plt.legend()
     plt.show()
 

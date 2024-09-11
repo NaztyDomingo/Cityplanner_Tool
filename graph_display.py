@@ -41,7 +41,6 @@ def bar(df, fig):
                 barmode='stack',
                 xaxis_title='Region',
                 yaxis_title='Total Emissions in 2022 (kt CO2e)',
-                title='Total Emissions by Region and Source in <country> (2022)',
                 legend_title='Emission Sources'
             )
     
@@ -125,3 +124,4 @@ def tree_rec(df, input_value, fig):
             )
 
     return fig
+
