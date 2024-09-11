@@ -45,8 +45,8 @@ def to_database(db_username: str, db_password: str, db_name: str, port_number : 
 
         df.to_sql(name = filename, con = engine, if_exists ='replace', index=False)
 
-def select_table(table_name: str, engine: create_engine) -> pd.DataFrame:
-    df = pd.read_sql_query(f'SELECT * FROM {table_name}', con=engine)
+def select_table(table_name: str, engine: create_engine, select_input: str = '*') -> pd.DataFrame:
+    df = pd.read_sql_query(f'SELECT {select_input} FROM {table_name}', con=engine)
     return df
 
 def pull_all_tables_return_list_with_dfs(db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> None:
