@@ -23,7 +23,7 @@ def _tranform_cities_data() -> None:
 
     df = dh.drop_columns(df, ['Region', 'City', '2006','2007','2008','2009','2011','2012','2013','2014'])
 
-    combined_df = _split_dataframe_and_transpose(df, 17)
+    combined_df = dh.split_dataframe_and_transpose(df, 17)
 
     combined_df.to_csv(filepath, header = False)
 
@@ -31,13 +31,12 @@ def _tranform_cities_data() -> None:
 
     df = dh.drop_columns(df, ['per person, tCO2e', 'F-gases', 'Emission credits'])
 
-    city_column = dh.remove_extra_rows_from_not_unique_series(city_column, 11)
-    region_column = dh.remove_extra_rows_from_unique_series(region_column, 11)
+    city_column = dh.remove_rows_from_not_unique_series(city_column, 11)
+    region_column = dh.remove_rows_from_not_unique_series(region_column, 11)
     df['City'] = city_column
     df['Region'] = region_column
 
     df = dh.rename_columns(df)
-    
     df['Region'] = df['Region'].apply(dh.replace_special_chars)
     df['Region'] = df['Region'].apply(dh.replace_word_to_camel_case)
     df['City'] = df['City'].apply(dh.replace_special_chars)
@@ -50,7 +49,10 @@ def _transform_regions_data() -> None:
     _removing_headers_and_bad_rows()
 
     # Making it into one file - all regions to one file
-    _make_custom_csv_file()
+    custom_csv_filename = 'finland_regions_emissions.csv'
+    filepath_output = fh.get_path_of_folder('transformed_finland_data')
+    filepath = fh.get_path_of_folder('transformed_finland_data/regions')
+    dh.make_custom_csv_file_from_many_files(custom_csv_filename, filepath, filepath_output, 'Hinku')
 
     # This is where i turned the dataframes around - making the columns become rows and rows become columns
     _remove_columns_not_needed_and_flip_columns_and_rows()
@@ -72,22 +74,6 @@ def _renaming_columns_and_adding_columns_together() -> None:
     filepath = fh.get_path_of_file(folder, filename)
     df.to_csv(filepath, index=False)
 
-def _split_dataframe_and_transpose(df: pd.DataFrame, chunk_size: int) -> pd.DataFrame:
-
-    dfs = [df.iloc[i:i + chunk_size].reset_index(drop=True) for i in range(0, len(df), chunk_size)]
-    
-    df_combined = dfs[0]
-    df_combined.set_index('Hinku calculation without emission credits', inplace=True)
-        
-    for df in dfs[1:]:
-        df.set_index('Hinku calculation without emission credits', inplace=True)
-        
-        df_combined = pd.concat([df_combined, df], axis=1)
-            
-    df_combined.reset_index(inplace=True)    
-    df_combined = df_combined.transpose()
-    return df_combined
-
 def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     filename = 'finland_regions_emissions.csv'
     folder = 'transformed_finland_data'
@@ -99,7 +85,7 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     df_cleaned.drop(columns=['2006','2007','2008','2009','2011','2012','2013','2014'], axis=1, inplace=True)
     region_column = df_cleaned['Region'].copy()
     df_cleaned.drop(columns=['Region'], axis=1, inplace=True)
-    df_combined = _split_dataframe_and_transpose(df_cleaned, 14)
+    df_combined = dh.split_dataframe_and_transpose(df_cleaned, 14)
     df_combined.to_csv(filepath)
 
     # Flipping rows and columns and adding region back
@@ -110,38 +96,6 @@ def _remove_columns_not_needed_and_flip_columns_and_rows() -> None:
     df['Region'] = result_series
 
     df.to_csv(filepath, index=False)
-
-def _remove_nan_from_csv_file() -> None:
-    filename = 'finland_regions_emissions.csv'
-    folder = 'transformed_finland_data'
-    filepath = fh.get_path_of_file(folder, filename)
-    df = pd.read_csv(filepath)
-    print(df.isna().sum())
-    df.fillna(0, inplace=True)
-    df.to_csv(filepath, index=False)
-
-def _make_custom_csv_file() -> None:
-    custom_csv_filename = 'finland_regions_emissions.csv'
-    filepath_output = fh.get_path_of_folder('transformed_finland_data')
-    filepath = fh.get_path_of_folder('transformed_finland_data/regions')
-    list_with_files = fh.get_list_with_names_from_folder(filepath)
-
-    split_word = 'Hinku'
-
-    output_df = pd.DataFrame()
-
-    for file in list_with_files:
-        filepath_of_file = os.path.join(filepath, file)
-        df = pd.read_csv(filepath_of_file, header = 1)
-        first_column = df.columns[0]
-        region, column_name = first_column.split(split_word)
-        column_name = split_word + column_name
-        df.rename(columns={first_column: column_name}, inplace=True)
-        df['Region'] = region
-        output_df = pd.concat([output_df, df])
-        
-    file_output = os.path.join(filepath_output, custom_csv_filename)
-    output_df.to_csv(file_output, index=False)
 
 def _removing_headers_and_bad_rows() -> None:
     # Taking files from finland_data making it a list, then writing them to csv files to folder transformed_finland_data
