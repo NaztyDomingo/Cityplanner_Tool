@@ -36,6 +36,7 @@ def replace_special_chars(word: str) -> str:
     replacements = {'Ä': 'AE', 'Ö': 'OE', 'Å': 'AA'}
     for char, replacement in replacements.items():
         word = word.replace(char, replacement)
+    word = word.capitalize()
     return word
 
 def reverse_special_chars_finish(word: str) -> str:

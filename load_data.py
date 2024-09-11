@@ -3,6 +3,7 @@ import pandas as pd
 import configparser
 import filehandler_helper as fh
 import psycopg2
+import dataframe_helper as dh
 
 def main() -> None:
     db_username, db_password = get_db_username_and_password('DEV', 'cityplanner_db_username', 'cityplanner_db_password')
@@ -60,6 +61,22 @@ def pull_all_tables_return_list_with_dfs(db_username: str, db_password: str, db_
         list_with_dfs.append(select_table(filename, engine))
 
     return list_with_dfs
+
+def pull_prediction_data_from_city(city: str, db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> pd.DataFrame:
+    engine = _create_engine(db_username, db_password, db_name, port_number, hostname)
+
+    city = dh.replace_special_chars(city)
+    print(city)
+    table_name = 'sweden_city_predictions'
+    try:
+        prediction_df = pd.read_sql_query(f'SELECT "Year", "{city.capitalize()}" FROM {table_name}', con=engine)
+    except:
+        table_name = 'finland_city_predictions'
+        prediction_df = pd.read_sql_query(f'SELECT "Year", "{city.capitalize()}" FROM {table_name}', con=engine)
+
+    return prediction_df
+    
+
 
 if __name__ == "__main__":
     main()

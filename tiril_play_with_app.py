@@ -6,7 +6,7 @@ from dash import Dash, dcc, html, Input, Output, State, callback_context, dash_t
 import visualization_data as vd
 import dataframe_helper as dh
 import database_puller as dp
-import graph_display as gd
+import graph_display2 as gd
 import tree_calc as tc
 
 def main():
@@ -93,10 +93,12 @@ def main():
 
                 # Ensure the 'Year' column is treated as a string (categorical data) to have equally spaced x-axis
                 filtered_line_data['Year'] = filtered_line_data['Year'].astype(str)
-                
+                predicted_df = dp.pull_predictions(input_value)
+                print(predicted_df)
                 # Create a line chart using Year and Total Emissions
                 fig_line = go.Figure()
-                fig_line = gd.line(filtered_line_data, input_value, fig_line)
+                #fig_line = gd.line(filtered_line_data, input_value, fig_line)
+                fig_line = gd.line(predicted_df, input_value, fig_line)
 
             else:
                 fig_line = {} # return empty figure
@@ -121,10 +123,8 @@ def main():
             else:
                 fig_pie = {} # return empty figure
 
-
             # Filter data based on user input for tree recommendations chart
             filtered_rec_data = tc.calc_trees(combined_cities_df, final_tree_info_df, input_value)
-            print(filtered_rec_data)
             
             # Tree recommendations
             if not filtered_rec_data.empty:
