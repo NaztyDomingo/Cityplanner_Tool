@@ -71,6 +71,7 @@ def line(df, input_value, fig):
                     df,
                     x='Year',
                     y='Total Emissions',
+                    markers='o',
                     title=f'Total Yearly Emissions for {input_value.capitalize()}',
                     category_orders={'Year': sorted(df['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
                 )
