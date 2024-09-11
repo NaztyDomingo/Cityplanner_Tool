@@ -41,6 +41,7 @@ def bar(df, fig):
                 barmode='stack',
                 xaxis_title='Region',
                 yaxis_title='Total Emissions in 2022 (kt CO2e)',
+                margin=dict(l=22, r=22, t=4, b=22),
                 legend_title='Emission Sources'
             )
     
@@ -53,7 +54,7 @@ def pie(df, fig):
                 values='Total Emissions 2022',
                 names='Hinku calculation without emission credits',
                 hole=.5,
-                title='Total Emissions by Source in <country> (2022)',
+                title='Total Emissions by Source (2022)',
                 color='Hinku calculation without emission credits',
                 color_discrete_map=colors_pie()
             )
@@ -104,7 +105,7 @@ def tree_co2(df, fig):
                 name="Average CO2 Consumption"
             ))
     fig.update_layout(
-                title='Average CO2 Consumption by Species',
+                title='Average CO2 Consumption by Tree Species',
                 xaxis_title='Trees',
                 yaxis_title='Average CO2 Consumption'
             )
@@ -119,7 +120,7 @@ def tree_rec(df, input_value, fig):
             ))
     fig.update_layout(
                 xaxis_title='Trees',
-                title=f'Recommended Tree Amount by Species for {input_value}',
+                title=f'Recommended Tree Amount by Species for {str(input_value.capitalize())}',
                 yaxis_title='Recommended Tree Amount'
             )
 

@@ -181,7 +181,7 @@ def main():
 
         # if no input, show
         if not input_value:
-            return {'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'margin': '20px', 'width': '100%'}
+            return {'display': 'flex', 'justifyContent': 'center', 'alignItems': 'center', 'margin': '20px', 'width': '100%'}
 
         # hide if the button has been clicked and input is provided
         if n_clicks > 0:
@@ -292,7 +292,7 @@ nested_title_div = {
 
 nested_dropdown_div = {
     'width': '250px',
-#'margin-left': '15px' 
+    #'margin-left': '15px' 
 }
 
 div_graph_style = {
