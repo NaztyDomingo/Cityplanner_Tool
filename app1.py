@@ -49,7 +49,7 @@ def main():
 
         # Default view for the page = User has not entered search parameters
         if not input_value:
-
+            print(input_value)
             # Filter the DataFrame to only include relevant emission sources. Country determined by dropdown
             if 'Finland' in country_selection:
                 filtered_df = fin_regions_df[fin_regions_df['Year'] == 2022][['Region'] + emission_sources]
@@ -80,7 +80,7 @@ def main():
 
         # User has entered a search parameter
         if input_value:
-
+            print(input_value)
             inputted_styles1 = inputted1_graph_style
             inputted_styles2 = inputted2_graph_style
 
@@ -126,7 +126,6 @@ def main():
 
             # Filter data based on user input for tree recommendations chart
             filtered_rec_data = tc.calc_trees(combined_cities_df, final_tree_info_df, input_value)
-            print(filtered_rec_data)
             
             # Tree recommendations
             if not filtered_rec_data.empty:
@@ -143,15 +142,36 @@ def main():
         # Default return when no input is provided
         return {}, {}, {} #, {}, {} # empty returns for the styling elements
     
+    # @app.callback(
+    #     Output('country-dropdown', 'style'),
+    #     [Input('submit-button', 'n_clicks')]
+    # )
+    # def toggle_dropdown(n_clicks):
+    #     #hide the dropdown when entering a city (if n_clicks is greater than 0)
+    #     if n_clicks > 0:
+    #         return {'display': 'none'}
+    #     return {'display': 'block'} 
+
+    #callback used for dropdown visibility
     @app.callback(
         Output('country-dropdown', 'style'),
-        [Input('submit-button', 'n_clicks')]
+        [Input('submit-button', 'n_clicks')],
+        [State('variable-input', 'value')]
     )
-    def toggle_dropdown(n_clicks):
-        #hide the dropdown when entering a city (if n_clicks is greater than 0)
+
+    #func used for dropdown visibility
+    def toggle_dropdown(n_clicks, input_value):
+        
+        #if no input, show
+        if not input_value:
+            return {'display': 'block'}
+        
+        # hide if the button has been clicked and input is provided
         if n_clicks > 0:
             return {'display': 'none'}
-        return {'display': 'block'} 
+    
+        # default: show
+        return {'display': 'block'}
     
     app.run_server(debug=True)
     
