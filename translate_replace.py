@@ -1,16 +1,16 @@
 import pandas as pd
 
-# header_translation = {
-#     'År': 'Year',
-#     'Produktanvändning (inkl. lösningsmedel)': 'Product Use',
-#     'Avfall (inkl. avlopp)': 'Waste and Sewage',
-#     'Arbetsmaskiner': 'Machinery',
-#     'Egen uppvärmning av bostäder och lokaler': 'Heating',
-#     'El och fjärrvärme': 'Electricity and District Heating',
-#     'Jordbruk': 'Agriculture',
-#     'Inrikes transporter': 'Transportation',
-#     'Industri (energi och processer)': 'Industry'
-# }
+header_translation = {
+    'År': 'Year',
+    'Produktanvändning (inkl. lösningsmedel)': 'Product Use',
+    'Avfall (inkl. avlopp)': 'Waste and Sewage',
+    'Arbetsmaskiner': 'Machinery',
+    'Egen uppvärmning av bostäder och lokaler': 'Heating',
+    'El och fjärrvärme': 'Electricity and District Heating',
+    'Jordbruk': 'Agriculture',
+    'Inrikes transporter': 'Transportation',
+    'Industri (energi och processer)': 'Industry'
+}
 
 
 def replace_special_characters(text: str) -> str:
@@ -24,12 +24,12 @@ def replace_special_characters(text: str) -> str:
 
 
 def translate_replace(data: pd.DataFrame) -> pd.DataFrame:
-    # header_translation = {
-    #     'Huvudsektor': 'Main sector',
-    #     'Undersektor': 'Subsector',
-    #     'Län': 'County',
-    #     'Kommun': 'Municipality'
-    # }
+    header_translation = {
+        'Huvudsektor': 'Main sector',
+        'Undersektor': 'Subsector',
+        'Län': 'County',
+        'Kommun': 'Municipality'
+    }
 
     value_translation = {
         'Main sector':{
@@ -40,17 +40,14 @@ def translate_replace(data: pd.DataFrame) -> pd.DataFrame:
             'Industri (energi + processer)':'Industry',
             'Transporter':'Transportation'
         }}
-       
-        
-        
     
-    # translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
-    # data = data.rename(columns=translated_headers)
+    translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
+    data = data.rename(columns=translated_headers)
     
-    # data.columns = [replace_special_characters(col) for col in data.columns]
+    data.columns = [replace_special_characters(col) for col in data.columns]
 
-    # translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
-    # data = data.rename(columns=translated_headers)
+    translated_headers = {key: replace_special_characters(value) for key, value in header_translation.items()}
+    data = data.rename(columns=translated_headers)
     
 
     for col in ['Main sector']:
