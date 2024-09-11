@@ -96,3 +96,31 @@ def pie_city(df, input_value, fig):
     # fig.update_layout(width=700, height=500)
     
     return fig
+
+def tree_co2(df, fig):
+    fig.add_trace(go.Bar(
+                x=df["Tree"],
+                y=df["Average CO2 Consumption"],
+                name="Average CO2 Consumption"
+            ))
+    fig.update_layout(
+                title='Average CO2 Consumption by Species',
+                xaxis_title='Trees',
+                yaxis_title='Average CO2 Consumption'
+            )
+    
+    return fig
+
+def tree_rec(df, input_value, fig):
+    fig.add_trace(go.Bar(
+                x=df["Tree"],
+                y=df['Recommended Tree Amount'],
+                name='Recommended Tree Amount'
+            ))
+    fig.update_layout(
+                xaxis_title='Trees',
+                title=f'Recommended Tree Amount by Species for {input_value}',
+                yaxis_title='Recommended Tree Amount'
+            )
+
+    return fig

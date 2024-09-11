@@ -7,6 +7,7 @@ import visualization_data as vd
 import dataframe_helper as dh
 import database_puller as dp
 import graph_display as gd
+import tree_calc as tc
 
 def main():
     # Initialize the Dash app
@@ -33,7 +34,7 @@ def main():
     # Define the callback for the input field and button
     @app.callback(
         [Output('line-or-bar-chart', 'figure'), Output('pie-chart', 'figure'),
-         # Output('recommendations-bar-chart', 'figure')
+         Output('recommendations-bar-chart', 'figure')
          #, Output('line-or-bar-chart', 'style'), Output('pie-chart', 'style')
          ],
         [Input('submit-button', 'n_clicks')],
@@ -68,10 +69,12 @@ def main():
             fig_pie = go.Figure()
             fig_pie = gd.pie(aggregated_df, fig_pie)
 
-            return fig_bar, fig_pie
+            # Default tree CO2 consumption bar chart
+            fig_rec = go.Figure()
+            fig_rec = gd.tree_co2(final_tree_info_df, fig_rec)
+
+            return fig_bar, fig_pie, fig_rec
         
-            # TODO: Add two charts for default Sweden data?
-            # Also consider how will that effect the overall layout (N of outputs)
 
         # User has entered a search parameter
         if n_clicks > 0 and input_value:
@@ -118,10 +121,25 @@ def main():
             else:
                 fig_pie = {} # return empty figure
 
-            return fig_line, fig_pie #, inputted_styles1, inputted_styles2 # Always return figures
+
+            # Filter data based on user input for tree recommendations chart
+            filtered_rec_data = tc.calc_trees(combined_cities_df, final_tree_info_df, input_value)
+            print(filtered_rec_data)
+            
+            # Tree recommendations
+            if not filtered_rec_data.empty:
+
+                ## Create a tree recommendations chart
+                fig_rec = go.Figure()
+                fig_rec = gd.tree_rec(filtered_rec_data, input_value, fig_rec)
+
+            else:
+                fig_rec = {} # return empty figure
+
+            return fig_line, fig_pie, fig_rec #, inputted_styles1, inputted_styles2 
             
         # Default return when no input is provided
-        return {}, {}, {}, {}
+        return {}, {}, {} #, {}, {} # empty returns for the styling elements
     
     app.run_server(debug=True)
     
@@ -165,10 +183,9 @@ def init_app(df) -> html.Div:
         dcc.Graph(id='pie-chart', style=default2_graph_style),
 
     # Tree recommendations bar chart
-    # html.Div([
-    #     dcc.Graph(id='recommendations-bar-chart', style={'display': 'block', 'width': '100%', 'height': '500px'})
-    # ], style={'marginTop': '30px'}),
-
+    html.Div([
+        dcc.Graph(id='recommendations-bar-chart', style=style_rec1)],
+        style=style_rec_div),
 
     # Tree data table
     dash_table.DataTable(
@@ -212,6 +229,9 @@ button_graph_style={
                     'marginLeft': '10px',
                     #'background-color': '#d3dcd5'
                 }
+
+style_rec1={'display': 'block', 'width': '100%', 'height': '500px'}
+style_rec_div={'marginTop': '30px'}
 
 default1_graph_style={'display': 'inline-block', 'width': '68%', 'height': '500px'}
 default2_graph_style={'display': 'inline-block', 'width': '32%', 'height': '500px'}
