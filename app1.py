@@ -34,6 +34,14 @@ def main():
     # Define the layout and style of the app
     app_layout(final_tree_info_df, app)
 
+    # callback + func to dynamically change title
+    @app.callback(
+        Output('dynamic-title', 'children'),
+        [Input('country-dropdown', 'value')]
+    )
+    def update_title(country_selection):
+        return f'Total Emissions by Region and Source in {country_selection} (2022)'
+
     # Define the callback for the input field and button
     @app.callback(
         [Output('line-or-bar-chart', 'figure'), Output('pie-chart', 'figure'),
@@ -164,7 +172,7 @@ def main():
 
     # callback used for dropdown visibility
     @app.callback(
-        Output('country-dropdown', 'style'),
+        Output('div-to-toggle', 'style'),
         [Input('submit-button', 'n_clicks')],
         [State('variable-input', 'value')]
     )
@@ -173,14 +181,14 @@ def main():
 
         # if no input, show
         if not input_value:
-            return {'display': 'block'}
+            return {'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'margin': '20px', 'width': '100%'}
 
         # hide if the button has been clicked and input is provided
         if n_clicks > 0:
             return {'display': 'none'}
 
         # default: show
-        return {'display': 'block'}
+        return {'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'margin': '20px', 'width': '100%'}
 
     app.run_server(debug=True)
 
@@ -219,11 +227,13 @@ def init_app(df) -> html.Div:
 
         # Checklist for country selection
         html.Div(
+            id='div-to-toggle',
             style=div_graph_style,
             children=[
                 html.Div(
                     html.H3(
-                        'Total Emissions by Region and Source in <country> (2022)'
+                        id='dynamic-title', 
+                        children='Total Emissions by Region and Source in <country> (2022)'
                     ),
                     style=nested_title_div
                 ),
@@ -276,11 +286,13 @@ h1_graph_style = {
 }
 
 nested_title_div = {
-    'width': '35%'
+    'width': '520px',
+    #'margin-right': '15px' 
 }
 
 nested_dropdown_div = {
-    'width': '15%'
+    'width': '250px',
+#'margin-left': '15px' 
 }
 
 div_graph_style = {
