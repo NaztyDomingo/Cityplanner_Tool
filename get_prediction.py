@@ -8,10 +8,10 @@ from statsmodels.tsa.api import VAR
 from statsmodels.tsa.stattools import adfuller
 
 def main() -> None:
-    #output_predictions('sweden_regions_emissions.csv', 'sweden', 'region') # get some problems due to null values and 'total emissions' = object
-    #output_predictions('finland_regions_emissions.csv', 'finland', 'region')
-    #output_predictions('finland_cities_emissions.csv', 'finland', 'city' )
-    #output_predictions('sweden_cities_emissions.csv', 'sweden', 'city' )
+    output_predictions('sweden_regions_emissions.csv', 'sweden', 'region') # get some problems due to null values and 'total emissions' = object
+    output_predictions('finland_regions_emissions.csv', 'finland', 'region')
+    output_predictions('finland_cities_emissions.csv', 'finland', 'city' )
+    output_predictions('sweden_cities_emissions.csv', 'sweden', 'city' )
 
     plot_predictions('finland_cities_emissions.csv', 'finland', 'city' )
    

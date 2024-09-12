@@ -60,7 +60,6 @@ def main():
 
         # Default view for the page = User has not entered search parameters
         if not input_value:
-            print(input_value)
             # Filter the DataFrame to only include relevant emission sources. Country determined by dropdown
             if 'Finland' in country_selection:
                 filtered_df = fin_regions_df[fin_regions_df['Year'] == 2022][[
@@ -93,7 +92,7 @@ def main():
 
         # User has entered a search parameter
         if input_value:
-            print(input_value)
+
             inputted_styles1 = inputted1_graph_style
             inputted_styles2 = inputted2_graph_style
 
@@ -143,9 +142,12 @@ def main():
             else:
                 fig_pie = {}  # return empty figure
 
+            predicted_df = dp.pull_predictions(input_value)
+
             # Filter data based on user input for tree recommendations chart
             filtered_rec_data = tc.calc_trees(
-                combined_cities_df, final_tree_info_df, input_value)
+                combined_cities_df, final_tree_info_df, predicted_df, '2022', input_value)
+            # print(combined_cities_df)
 
             # Tree recommendations
             if not filtered_rec_data.empty:
@@ -234,7 +236,7 @@ def init_app(df) -> html.Div:
             children=[
                 html.Div(
                     html.H3(
-                        id='dynamic-title', 
+                        id='dynamic-title',
                         children='Total Emissions by Region and Source in <country> (2022)'
                     ),
                     style=nested_title_div
@@ -266,6 +268,19 @@ def init_app(df) -> html.Div:
             ],
                 style=style_rec_div),
 
+            # Slider for selecting year
+            html.Div(
+                dcc.Slider(
+                    id='year-slider',
+                    min=2022,
+                    max=2025,
+                    step=1,
+                    value=2022,
+                    marks={year: str(year) for year in range(2022, 2026)},
+                ),
+                style=slider_div_style
+            ),
+
             # Tree data table
             dash_table.DataTable(
                 id='data-table',
@@ -288,20 +303,22 @@ h1_graph_style = {
 }
 
 nested_title_div = {
-    'width': '520px',
-    #'margin-right': '15px' 
+    'width': '650px',
+    # 'margin-right': '15px'
+    'fontFamily': 'Open Sans, verdana, arial, sans-serif',
 }
 
 nested_dropdown_div = {
     'width': '250px',
-    #'margin-left': '15px' 
+    # 'margin-left': '15px'
+    'fontFamily': 'Open Sans, verdana, arial, sans-serif',
 }
 
 div_graph_style = {
     'display': 'flex',
     'justifyContent': 'center',
     'alignItems': 'center',
-    'margin': '20px' , 
+    'margin': '20px',
     'fontFamily': 'Open Sans, verdana, arial, sans-serif',
     'width': '100%'
 }
@@ -309,7 +326,8 @@ div_graph_style = {
 children_graph_style = {
     'width': '400px',
     'height': '50px',
-    'fontSize': '18px'
+    'fontSize': '18px',
+    'paddingLeft': '10px'
 }
 
 button_graph_style = {
@@ -322,6 +340,7 @@ button_graph_style = {
 
 style_rec1 = {'display': 'inline-block', 'width': '68%', 'height': '500px'}
 style_rec_div = {'marginTop': '30px'}
+slider_div_style = {'width': '60%', 'margin': '0px 0px 30px 40px'}
 
 default1_graph_style = {'display': 'inline-block',
                         'width': '100%', 'height': '750px'}
@@ -338,6 +357,7 @@ style_cell = {
     'height': 'auto',
     'textAlign': 'left',
     'fontFamily': 'Open Sans, verdana, arial, sans-serif',
+    'padding': '10px',
     'fontSize': '14px'
 }
 style_header = {

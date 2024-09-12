@@ -52,7 +52,7 @@ def select_table(table_name: str, engine: create_engine, select_input: str = '*'
 
 def pull_all_tables_return_list_with_dfs(db_username: str, db_password: str, db_name: str, port_number : int = 5432, hostname : str = 'localhost') -> None:
     filepath = fh.get_path_of_folder('')
-    list_with_folder_names = fh.search_folder_get_list_with_foldernames('transformed_', filepath)
+    list_with_folder_names = fh.search_folder_get_list_with_foldernames_without_predictions('transformed_', filepath)
     list_with_files_to_load = fh.get_tupled_list_with_filename_and_filepath_from_list_with_folder_names(list_with_folder_names)
 
     engine = _create_engine(db_username, db_password, db_name, port_number, hostname)

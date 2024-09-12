@@ -42,7 +42,7 @@ def bar(df, fig):
                 barmode='stack',
                 xaxis_title='Region',
                 yaxis_title='Total Emissions in 2022 (kt CO2e)',
-                margin=dict(l=22, r=22, t=4, b=22),
+                margin=dict(l=22, r=22, t=3, b=22),
                 legend_title='Emission Sources'
             )
     
@@ -67,20 +67,65 @@ def pie(df, fig):
 
 
 def line(df, input_value, fig):
-    input_value = dh.replace_special_chars(input_value)
-    fig = px.line(
-                    df,
-                    x='Year',
-                    y=input_value,
-                    markers='o',
-                    title=f'Total Yearly Emissions for {input_value.capitalize()}',
-                    category_orders={'Year': sorted(df['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
-                )
-    fig.update_xaxes(
-                    type='category',  # Treat 'Year' as a category
-                    #tickangle=75
-                )
-    fig.update_layout(yaxis_title = 'Total Emissions')
+    
+    input_value_spec_rm = dh.replace_special_chars(input_value)
+
+    df_before_2022 = df[df['Year'] <= 2022]
+    df_after_2022 = df[df['Year'] >= 2022]
+
+    # Create the figure with two line traces
+    fig = go.Figure()
+
+        # Add the trace for years from 2022 onwards
+    fig.add_trace(go.Scatter(
+        x=df_after_2022['Year'],
+        y=df_after_2022[input_value_spec_rm],
+        mode='lines+markers',
+        name='Predicted Data',
+        line=dict(color='red'),
+        marker=dict(color='red')
+    ))
+
+    # Add the trace for years before 2022
+    fig.add_trace(go.Scatter(
+        x=df_before_2022['Year'],
+        y=df_before_2022[input_value_spec_rm],
+        mode='lines+markers',
+        name='Historical Data',
+        line=dict(color='blue'),
+        marker=dict(color='blue')
+    ))
+
+    fig.update_layout(
+        title=f'Total Yearly Emissions for {input_value.capitalize()}',
+        xaxis=dict(
+            title='Year',
+            type='category',  # Treat 'Year' as a category
+            categoryorder='array',
+            categoryarray=sorted(df['Year'].unique(), key=lambda x: int(x))
+        ),
+        yaxis=dict(title='Total Emissions')
+    )
+
+    # marker_colors = ['red' if year > 2022 else 'blue' for year in df['Year']]
+    
+    # fig = px.line(
+    #                 df,
+    #                 x='Year',
+    #                 y=input_value,
+    #                 markers='o',
+    #                 title=f'Total Yearly Emissions for {input_value.capitalize()}',
+    #                 category_orders={'Year': sorted(df['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
+    #             )
+    
+    # fig.update_traces(marker=dict(color=marker_colors))
+    
+    # fig.update_xaxes(
+    #                 type='category',  # Treat 'Year' as a category
+    #                 #tickangle=75
+    #             )
+    
+    # fig.update_layout(yaxis_title = 'Total Emissions')
     return fig
 
 def pie_city(df, input_value, fig):
