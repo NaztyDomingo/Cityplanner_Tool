@@ -48,10 +48,11 @@ def main():
          Output('recommendations-bar-chart', 'figure')],
         # , Output('line-or-bar-chart', 'style'), Output('pie-chart', 'style')
         [Input('country-dropdown', 'value'),
-         Input('submit-button', 'n_clicks')],
+         Input('submit-button', 'n_clicks'),
+         Input('year-slider', 'value')],
         [State('variable-input', 'value')]
     )
-    def update_graph(country_selection, n_clicks, input_value):
+    def update_graph(country_selection, n_clicks, selected_year, input_value):
 
         emission_sources = [
             'Waste And Sewage', 'Machinery', 'Electricity And District Heating',
@@ -146,7 +147,7 @@ def main():
 
             # Filter data based on user input for tree recommendations chart
             filtered_rec_data = tc.calc_trees(
-                combined_cities_df, final_tree_info_df, predicted_df, '2022', input_value)
+                combined_cities_df, final_tree_info_df, predicted_df, str(selected_year), input_value)
             # print(combined_cities_df)
 
             # Tree recommendations
@@ -193,6 +194,20 @@ def main():
 
         # default: show
         return {'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'margin': '20px', 'width': '100%'}
+
+    ##### ALWAYS HIDES SLIDER ####
+    @app.callback(
+        Output('slider-container', 'style'),
+        [Input('submit-button', 'n_clicks')],
+        [State('variable-input', 'value')]
+    )
+    def toggle_slider_visibility(n_clicks, input_value):
+
+        if input_value:
+            return {'display': 'none'}
+            #return {'display': 'block', 'width': '80%', 'marginLeft': '10%'}
+
+        return {'display': 'none'}
 
     app.run_server(debug=True)
 
@@ -270,14 +285,17 @@ def init_app(df) -> html.Div:
 
             # Slider for selecting year
             html.Div(
-                dcc.Slider(
-                    id='year-slider',
-                    min=2022,
-                    max=2025,
-                    step=1,
-                    value=2022,
-                    marks={year: str(year) for year in range(2022, 2026)},
-                ),
+                id='slider-container',  # Add an ID to the wrapper Div
+                children=[
+                    dcc.Slider(
+                        id='year-slider',
+                        min=2022,
+                        max=2025,
+                        step=1,
+                        value=2022,
+                        marks={year: {'label':str(year), 'style': {'fontSize': '16px', 'fontFamily': 'Open Sans, verdana, arial, sans-serif'}} for year in range(2022, 2026)},
+                    ),
+                ],
                 style=slider_div_style
             ),
 
@@ -327,7 +345,8 @@ children_graph_style = {
     'width': '400px',
     'height': '50px',
     'fontSize': '18px',
-    'paddingLeft': '10px'
+    'paddingLeft': '10px',
+    'borderRadius': '4px'
 }
 
 button_graph_style = {
@@ -335,12 +354,17 @@ button_graph_style = {
     'fontSize': '18px',
     'padding': '10px 20px',
     'marginLeft': '10px',
+    'background-color': '#a7d2ac',
+    'border': '0px',
+    'border-radius': '4px',
     # 'background-color': '#d3dcd5'
 }
 
+
 style_rec1 = {'display': 'inline-block', 'width': '68%', 'height': '500px'}
 style_rec_div = {'marginTop': '30px'}
-slider_div_style = {'width': '60%', 'margin': '0px 0px 30px 40px'}
+slider_div_style = {'width': '80%', 'marginLeft': '10%'} 
+
 
 default1_graph_style = {'display': 'inline-block',
                         'width': '100%', 'height': '750px'}
@@ -361,7 +385,9 @@ style_cell = {
     'fontSize': '14px'
 }
 style_header = {
-    'backgroundColor': '#d3dcd5',
+    'marginTop': '10px',
+    'backgroundColor': '#a7d2ac',
+    'color': '#000000',
     'fontWeight': 'bold'
 }
 style_data_conditional = [

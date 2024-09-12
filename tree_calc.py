@@ -10,6 +10,7 @@ def calc_trees(combined_cities_df, final_tree_info_df, predicted_df, input_year,
     filtered_cities_data = filtered_cities_data[filtered_cities_data['City With Special Characters'].str.contains(input_value, case=False)]
     #total_2022 = filtered_cities_data['Total Emissions'].iloc[0]
 
+    input_value = dh.replace_special_chars(input_value)
     input = input_value.capitalize()
     emissions = predicted_df[input]
 
@@ -25,6 +26,7 @@ def calc_trees(combined_cities_df, final_tree_info_df, predicted_df, input_year,
 
 
     def calc_year(total):
+        print(total)
     
         LARCH_CONSUMPTION = final_tree_info_new_df.loc[final_tree_info_new_df['Tree'] == 'Larch', 'Average CO2 Consumption'].iloc[0]
         larch_calc = int(total / LARCH_CONSUMPTION)
