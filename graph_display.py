@@ -68,7 +68,7 @@ def pie(df, fig):
 
 def line(df, input_value, fig):
     
-    input_value = dh.replace_special_chars(input_value)
+    input_value_spec_rm = dh.replace_special_chars(input_value)
 
     df_before_2022 = df[df['Year'] <= 2022]
     df_after_2022 = df[df['Year'] >= 2022]
@@ -79,7 +79,7 @@ def line(df, input_value, fig):
         # Add the trace for years from 2022 onwards
     fig.add_trace(go.Scatter(
         x=df_after_2022['Year'],
-        y=df_after_2022[input_value],
+        y=df_after_2022[input_value_spec_rm],
         mode='lines+markers',
         name='Predicted Data',
         line=dict(color='red'),
@@ -89,7 +89,7 @@ def line(df, input_value, fig):
     # Add the trace for years before 2022
     fig.add_trace(go.Scatter(
         x=df_before_2022['Year'],
-        y=df_before_2022[input_value],
+        y=df_before_2022[input_value_spec_rm],
         mode='lines+markers',
         name='Historical Data',
         line=dict(color='blue'),
