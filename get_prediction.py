@@ -35,7 +35,7 @@ def prep_dfs(input_file: str, country: str, type: str) -> list:
         emission_df['Total Emissions'] = emission_df['Total Emissions'].astype(float)
         print(emission_df.dtypes)
     
-    emission_df_2010 = emission_df[emission_df['Year'] >= '2010-01-01']
+    emission_df_2010 = emission_df[emission_df['Year'] >= '2005-01-01']
 
     emission_pivot = emission_df.pivot(index='Year', columns=region_or_city, values='Total Emissions') #used in concat later
     emission_pivot_2010 = emission_df_2010.pivot(index='Year', columns=region_or_city, values='Total Emissions') #used in predictions
