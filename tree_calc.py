@@ -9,6 +9,7 @@ def calc_trees(combined_cities_df, final_tree_info_df, input_value):
     filtered_cities_data = combined_cities_new_df[combined_cities_new_df['Year'] == 2022][['City With Special Characters','Total Emissions']]
 
     filtered_cities_data = filtered_cities_data[filtered_cities_data['City With Special Characters'].str.contains(input_value, case=False)]
+
     total = filtered_cities_data['Total Emissions'].iloc[0]
 
     LARCH_CONSUMPTION = final_tree_info_new_df.loc[final_tree_info_new_df['Tree'] == 'Larch', 'Average CO2 Consumption'].iloc[0]
