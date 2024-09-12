@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 import plotly.express as px
+import dataframe_helper as dh
 
 def colors(emission_sources):
         
@@ -66,11 +67,11 @@ def pie(df, fig):
 
 
 def line(df, input_value, fig):
-    
+    input_value = dh.replace_special_chars(input_value)
     fig = px.line(
                     df,
                     x='Year',
-                    y='Total Emissions',
+                    y=input_value,
                     markers='o',
                     title=f'Total Yearly Emissions for {input_value.capitalize()}',
                     category_orders={'Year': sorted(df['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
@@ -79,7 +80,7 @@ def line(df, input_value, fig):
                     type='category',  # Treat 'Year' as a category
                     #tickangle=75
                 )
-    # fig.update_layout(width=600, height=500)
+    fig.update_layout(yaxis_title = 'Total Emissions')
     return fig
 
 def pie_city(df, input_value, fig):

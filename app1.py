@@ -112,9 +112,11 @@ def main():
                 filtered_line_data['Year'] = filtered_line_data['Year'].astype(
                     str)
 
+                predicted_df = dp.pull_predictions(input_value)
+
                 # Create a line chart using Year and Total Emissions
                 fig_line = go.Figure()
-                fig_line = gd.line(filtered_line_data, input_value, fig_line)
+                fig_line = gd.line(predicted_df, input_value, fig_line)
 
             else:
                 fig_line = {}  # return empty figure
