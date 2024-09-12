@@ -67,13 +67,14 @@ def pie(df, fig):
 
 
 def line(df, input_value, fig):
+    title = input_value
     input_value = dh.replace_special_chars(input_value)
     fig = px.line(
                     df,
                     x='Year',
                     y=input_value,
                     markers='o',
-                    title=f'Total Yearly Emissions for {input_value.capitalize()}',
+                    title=f'Total Yearly Emissions for {title.capitalize()}',
                     category_orders={'Year': sorted(df['Year'].unique(), key=lambda x: int(x))}  # Ensures years are sorted correctly
                 )
     fig.update_xaxes(
