@@ -178,8 +178,7 @@ def tree_rec(df, input_value, fig):
         marker_color='#8eb892'  # 5d8e62
     ))
     fig.update_layout(
-        xaxis_title='Type of Tree',
-        title=f'Recommended Tree Amount by Species for {
+        title=f'Tree Amount Needed to Offset Emissions Predicted for 2025 by Species for {
             str(input_value.capitalize())}',
         font=dict(
                     family='Open Sans, verdana, arial, sans-serif',
